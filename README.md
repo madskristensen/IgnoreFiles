@@ -2,8 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/28ov3nlmta59snrw?svg=true)](https://ci.appveyor.com/project/madskristensen/ignorefiles)
 
-<!-- Update the VS Gallery link after you upload the VSIX-->
-Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/[GuidFromGallery])
+Download this extension from the [VS Gallery](https://visualstudiogallery.msdn.microsoft.com/d0eba56d-603b-45ab-a680-edfda585f7f3)
 or get the [CI build](http://vsixgallery.com/extension/7ac24965-ea21-4108-9cac-6e46394aaaef/).
 
 ---------------------------------------
@@ -17,7 +16,9 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 - Syntax highlighting
 
 ### Syntax highlighing
-Describe feature 1. Add screenshots/code samples etc.
+Syntax highlighting for all any type of .ignore file.
+
+![Syntax Highlighting](art/syntax-highlighting.png)
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
