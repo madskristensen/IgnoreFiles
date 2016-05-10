@@ -8,17 +8,15 @@ or get the [CI build](http://vsixgallery.com/extension/7ac24965-ea21-4108-9cac-6
 
 ---------------------------------------
 
-Empty VSIX Project.
+A lanuage service for dealing with all types of .ignore files such as .gitignore, .tfignore etc.
 
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 
 ## Features
 
-- Feature 1
-- Feature 2
-  - Sub feature
+- Syntax highlighting
 
-### Feature 1
+### Syntax highlighing
 Describe feature 1. Add screenshots/code samples etc.
 
 ## Contribute

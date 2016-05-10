@@ -9,10 +9,10 @@ namespace IgnoreFiles
     {
         public const string Id = "7ac24965-ea21-4108-9cac-6e46394aaaef";
         public const string Name = ".ignore";
-        public const string Description = "Empty VSIX Project.";
+        public const string Description = "A lanuage service for dealing with all types of .ignore files such as .gitignore, .tfignore etc.";
         public const string Language = "en-US";
         public const string Version = "1.0";
         public const string Author = "Mads Kristensen";
-        public const string Tags = "";
+        public const string Tags = "git, tfs, ignore";
     }
 }
