@@ -57,6 +57,9 @@ namespace IgnoreFiles
                 }
                 else if (tag.ClassificationType.IsOfType(IgnoreClassificationTypes.Path))
                 {
+                    if (!IgnorePackage.Options.ShowTooltip)
+                        continue;
+
                     string text = IgnoreClassifier.CleanPattern(tag.Span.GetText());
                     var files = GetFiles(_root, text);
 
