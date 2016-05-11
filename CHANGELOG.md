@@ -12,6 +12,7 @@
 - [x] Hover tooltip to show matched files 
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
+- [ ] Make files in tooltip clickable (opens file)
 
 Features that have a checkmark are complete and available for
 download in the
