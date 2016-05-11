@@ -5,13 +5,13 @@ using Microsoft.VisualStudio.Text.Editor;
 
 namespace IgnoreFiles
 {
-    internal class ImageHtmlQuickInfoController : IIntellisenseController
+    internal class IgnoreQuickInfoController : IIntellisenseController
     {
         private ITextView m_textView;
         private IList<ITextBuffer> m_subjectBuffers;
-        private ImageHtmlQuickInfoControllerProvider m_provider;
+        private IgnoreQuickInfoControllerProvider m_provider;
 
-        internal ImageHtmlQuickInfoController(ITextView textView, IList<ITextBuffer> subjectBuffers, ImageHtmlQuickInfoControllerProvider provider)
+        internal IgnoreQuickInfoController(ITextView textView, IList<ITextBuffer> subjectBuffers, IgnoreQuickInfoControllerProvider provider)
         {
             m_textView = textView;
             m_subjectBuffers = subjectBuffers;

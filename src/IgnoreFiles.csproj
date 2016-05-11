@@ -55,13 +55,15 @@
     <Compile Include="Classify\IgnoreClassificationTypes.cs" />
     <Compile Include="Classify\IgnoreClassifier.cs" />
     <Compile Include="Classify\IgnoreClassifierProvider.cs" />
-    <Compile Include="ContentType\IgnoreCreationListener.cs" />
     <Compile Include="ContentType\IgnoreContentTypeDefinition.cs" />
     <Compile Include="Helpers\ProjectHelpers.cs" />
     <Compile Include="IgnoreCommandTable.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IgnoreCommandTable.vsct</DependentUpon>
+    </Compile>
+    <Compile Include="Options.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuickInfo\IgnoreQuickInfo.cs" />

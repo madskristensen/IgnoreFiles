@@ -21,7 +21,6 @@ namespace IgnoreFiles
         private ConcurrentDictionary<string, bool> _cache = new ConcurrentDictionary<string, bool>();
         private string _root;
         private ITextBuffer _buffer;
-        private string[] _ignorePaths = { "\\node_modules\\", "\\.git\\" };
         private bool _isResetting;
 
         public IgnoreClassifier(IClassificationTypeRegistryService registry, ITextBuffer buffer, string fileName)
@@ -149,19 +148,21 @@ namespace IgnoreFiles
 
         private bool HasFiles(string folder, string pattern)
         {
+            var ignorePaths = IgnorePackage.Options.GetIgnorePatterns();
+
             try
             {
                 foreach (var file in Directory.EnumerateFileSystemEntries(folder))
                 {
                     string relative = file.Replace(_root, "").TrimStart('\\');
 
-                    if (Minimatcher.Check(relative, pattern, new Options { AllowWindowsPaths = true }))
+                    if (Minimatcher.Check(relative, pattern, new Minimatch.Options { AllowWindowsPaths = true }))
                         return true;
                 }
 
                 foreach (var directory in Directory.EnumerateDirectories(folder))
                 {
-                    if (!_ignorePaths.Any(p => directory.Contains(p)) && HasFiles(directory, pattern))
+                    if (!ignorePaths.Any(p => directory.Contains(p)) && HasFiles(directory, pattern))
                         return true;
                 }
             }

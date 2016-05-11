@@ -18,6 +18,10 @@ namespace IgnoreFiles
         public void AugmentQuickInfoSession(IQuickInfoSession session, IList<object> qiContent, out ITrackingSpan applicableToSpan)
         {
             applicableToSpan = null;
+
+            if (!IgnorePackage.Options.ShowTooltip)
+                return;
+
             var buffer = session.TextView.TextBuffer;
 
             SnapshotPoint? point = session.GetTriggerPoint(buffer.CurrentSnapshot);

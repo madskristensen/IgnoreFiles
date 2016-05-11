@@ -10,14 +10,14 @@ namespace IgnoreFiles
     [Export(typeof(IIntellisenseControllerProvider))]
     [Name("Ignore QuickInfo Controller")]
     [ContentType(IgnoreContentTypeDefinition.IgnoreContentType)]
-    public class ImageHtmlQuickInfoControllerProvider : IIntellisenseControllerProvider
+    public class IgnoreQuickInfoControllerProvider : IIntellisenseControllerProvider
     {
         [Import]
         public IQuickInfoBroker QuickInfoBroker { get; set; }
 
         public IIntellisenseController TryCreateIntellisenseController(ITextView textView, IList<ITextBuffer> subjectBuffers)
         {
-            return new ImageHtmlQuickInfoController(textView, subjectBuffers, this);
+            return new IgnoreQuickInfoController(textView, subjectBuffers, this);
         }
     }
 }

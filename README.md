@@ -36,6 +36,13 @@ is being grayed out.
 
 ![Non Match](art/non-match.png)
 
+## Settings
+Various settings are available in the **Tools -> Options**
+dialog. You can find them under **Text Editor/.ignore**
+in the list.
+
+![Settings](art/settings.png)
+
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
 if you want to contribute to this project.
