@@ -1,0 +1,44 @@
+
+// Team Foundation
+[$RootKey$\ShellFileAssociations\.tfignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// GIT
+[$RootKey$\ShellFileAssociations\.gitignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// Mercurial
+[$RootKey$\ShellFileAssociations\.hgignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// npm
+[$RootKey$\ShellFileAssociations\.npmignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// Docker
+[$RootKey$\ShellFileAssociations\.dockerignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// Chef
+[$RootKey$\ShellFileAssociations\.chefignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// CVS
+[$RootKey$\ShellFileAssociations\.cvsignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// Bazaar
+[$RootKey$\ShellFileAssociations\.bzrignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// JSHint
+[$RootKey$\ShellFileAssociations\.jshintignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// ESLint
+[$RootKey$\ShellFileAssociations\.eslintignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// Cloud foundry
+[$RootKey$\ShellFileAssociations\.cfignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"

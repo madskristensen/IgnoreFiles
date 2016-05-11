@@ -14,11 +14,17 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 ## Features
 
 - Syntax highlighting
+- File icons in Solution Explorer
 
 ### Syntax highlighing
 Syntax highlighting for all any type of .ignore file.
 
 ![Syntax Highlighting](art/syntax-highlighting.png)
+
+### File icons
+Correct file icons will be shown for all the .ignore files.
+
+![Icons](art/icons.png)
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
