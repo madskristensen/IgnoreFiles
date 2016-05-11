@@ -14,9 +14,18 @@ namespace IgnoreFiles
         [Import]
         public IClassificationTypeRegistryService Registry { get; set; }
 
+        [Import]
+        ITextDocumentFactoryService TextDocumentFactoryService { get; set; }
+
         public IClassifier GetClassifier(ITextBuffer textBuffer)
         {
-            return textBuffer.Properties.GetOrCreateSingletonProperty(() => new IgnoreClassifier(Registry));
+            ITextDocument document;
+            if (TextDocumentFactoryService.TryGetTextDocument(textBuffer, out document))
+            {
+                return textBuffer.Properties.GetOrCreateSingletonProperty(() => new IgnoreClassifier(Registry, document.FilePath));
+            }
+
+            return null;
         }
     }
 }

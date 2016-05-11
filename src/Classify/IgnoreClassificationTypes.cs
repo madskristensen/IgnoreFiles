@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.Composition;
 using System.Windows.Media;
-using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Utilities;
 
@@ -11,6 +10,7 @@ namespace IgnoreFiles
         public const string Keyword = "Ignore_keyword";
         public const string Operator = "Ignore_operator";
         public const string Path = "Ignore_path";
+        public const string PathNoMatch = "Ignore_path_no_match";
 
         [Export, Name(Keyword)]
         public static ClassificationTypeDefinition IgnoreClassificationBold { get; set; }
@@ -20,6 +20,9 @@ namespace IgnoreFiles
 
         [Export, Name(Path)]
         public static ClassificationTypeDefinition IgnoreClassificationPath { get; set; }
+
+        [Export, Name(PathNoMatch)]
+        public static ClassificationTypeDefinition IgnoreClassificationPathNoMatch { get; set; }
     }
 
     [Export(typeof(EditorFormatDefinition))]
@@ -62,6 +65,20 @@ namespace IgnoreFiles
         {
             ForegroundBrush = Brushes.SteelBlue;
             DisplayName = "Ignore Path";
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = IgnoreClassificationTypes.PathNoMatch)]
+    [Name(IgnoreClassificationTypes.PathNoMatch)]
+    [Order(After = Priority.Default)]
+    [UserVisible(true)]
+    internal sealed class IgnorePathNoMatchFormatDefinition : ClassificationFormatDefinition
+    {
+        public IgnorePathNoMatchFormatDefinition()
+        {
+            ForegroundOpacity = 0.4;
+            DisplayName = "Ignore Path No Match";
         }
     }
 }

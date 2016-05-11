@@ -1,24 +1,30 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
+using Minimatch;
 
 namespace IgnoreFiles
 {
     public class IgnoreClassifier : IClassifier
     {
-        private IClassificationType _symbol, _comment, _path, _operator;
+        private IClassificationType _symbol, _comment, _path, _pathNoMatch, _operator;
         private Regex _commentRegex = new Regex(@"(?<!\\)(#.+)", RegexOptions.Compiled);
         private Regex _pathRegex = new Regex(@"(?<path>^[^:#\r\n]+)", RegexOptions.Compiled);
         private Regex _operatorRegex = new Regex(@"(?<!\\)\[([0-9-]+)\]", RegexOptions.Compiled);
         private Regex _symbolRegex = new Regex(@"^(?<name>syntax)(?::[^#:]+)", RegexOptions.Compiled);
+        private string _fileName;
 
-        public IgnoreClassifier(IClassificationTypeRegistryService registry)
+        public IgnoreClassifier(IClassificationTypeRegistryService registry, string fileName)
         {
+            _fileName = fileName;
             _comment = registry.GetClassificationType(PredefinedClassificationTypeNames.Comment);
             _path = registry.GetClassificationType(IgnoreClassificationTypes.Path);
+            _pathNoMatch = registry.GetClassificationType(IgnoreClassificationTypes.PathNoMatch);
             _operator = registry.GetClassificationType(IgnoreClassificationTypes.Operator);
             _symbol = registry.GetClassificationType(IgnoreClassificationTypes.Keyword);
         }
@@ -58,7 +64,9 @@ namespace IgnoreFiles
             if (!pathMatch.Success)
                 return list;
 
-            var path = GetSpan(span, pathMatch.Groups["path"], _path);
+            var pathType = GetPathClassificationType(pathMatch.Groups["path"]);
+
+            var path = GetSpan(span, pathMatch.Groups["path"], pathType);
             if (path != null)
             {
                 foreach (Match opMatch in _operatorRegex.Matches(text))
@@ -70,6 +78,31 @@ namespace IgnoreFiles
             }
 
             return list;
+        }
+
+        private IClassificationType GetPathClassificationType(Group group)
+        {
+            if (string.IsNullOrEmpty(_fileName) || !Path.IsPathRooted(_fileName))
+                return _path;
+
+            // Turns [Rr]elease into Release
+            string value = Regex.Replace(group.Value, @"\[(\S)\1\]", "$1");
+
+            if (!value.Contains('*')) // Example: packages/ or local.properties
+            {
+                var root = Path.GetDirectoryName(_fileName);
+                var path = Path.Combine(root, group.Value);
+
+                // It's known that the expression is a folder
+                if (value.EndsWith("/") && !Directory.Exists(path))
+                    return _pathNoMatch;
+
+                // Could be either a folder or a file
+                if (!File.Exists(path) && !Directory.Exists(path))
+                    return _pathNoMatch;
+            }
+
+            return _path;
         }
 
         private ClassificationSpan GetSpan(SnapshotSpan span, Group group, IClassificationType type)
