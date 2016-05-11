@@ -35,8 +35,13 @@ namespace IgnoreFiles
                 if (tag.ClassificationType.IsOfType(IgnoreClassificationTypes.PathNoMatch))
                 {
                     string text = tag.Span.GetText();
+                    string tooltip = $"The path \"{text}\" does not point to any existing file";
+
+                    if (text.StartsWith("../"))
+                        tooltip = "The entry start with \"../\" which is not allowed";
+
                     applicableToSpan = buffer.CurrentSnapshot.CreateTrackingSpan(tag.Span.Span, SpanTrackingMode.EdgeNegative);
-                    qiContent.Add($"The path \"{text}\" does not point to any existing file");
+                    qiContent.Add(tooltip);
                     break;
                 }
             }

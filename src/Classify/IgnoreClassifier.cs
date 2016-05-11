@@ -17,11 +17,11 @@ namespace IgnoreFiles
         private Regex _pathRegex = new Regex(@"(?<path>^[^:#\r\n]+)", RegexOptions.Compiled);
         private Regex _operatorRegex = new Regex(@"(?<!\\)\[([0-9-]+)\]", RegexOptions.Compiled);
         private Regex _symbolRegex = new Regex(@"^(?<name>syntax)(?::[^#:]+)", RegexOptions.Compiled);
-        private string _fileName;
+        private string _root;
 
         public IgnoreClassifier(IClassificationTypeRegistryService registry, string fileName)
         {
-            _fileName = fileName;
+            _root = Path.GetDirectoryName(fileName);
             _comment = registry.GetClassificationType(PredefinedClassificationTypeNames.Comment);
             _path = registry.GetClassificationType(IgnoreClassificationTypes.Path);
             _pathNoMatch = registry.GetClassificationType(IgnoreClassificationTypes.PathNoMatch);
@@ -82,16 +82,15 @@ namespace IgnoreFiles
 
         private IClassificationType GetPathClassificationType(Group group)
         {
-            if (string.IsNullOrEmpty(_fileName) || !Path.IsPathRooted(_fileName))
-                return _path;
+            if (group.Value.StartsWith("../"))
+                return _pathNoMatch;
 
             // Turns [Rr]elease into Release
             string value = Regex.Replace(group.Value, @"\[(\S)\1\]", "$1");
 
             if (!value.Contains('*')) // Example: packages/ or local.properties
             {
-                var root = Path.GetDirectoryName(_fileName);
-                var path = Path.Combine(root, group.Value);
+                var path = Path.Combine(_root, group.Value);
 
                 // It's known that the expression is a folder
                 if (value.EndsWith("/") && !Directory.Exists(path))
@@ -101,8 +100,39 @@ namespace IgnoreFiles
                 if (!File.Exists(path) && !Directory.Exists(path))
                     return _pathNoMatch;
             }
+            else
+            {
+                if (!HasFiles(_root, value))
+                    return _pathNoMatch;
+            }
 
             return _path;
+        }
+
+        private bool HasFiles(string folder, string pattern, int depth = 0)
+        {
+            if (depth == 3)
+                return true;
+
+            try
+            {
+                foreach (var file in Directory.EnumerateFileSystemEntries(folder))
+                {
+                    string relative = file.Replace(_root, "").TrimStart('\\');
+
+                    if (Minimatcher.Check(relative, pattern, new Options { AllowWindowsPaths = true }))
+                        return true;
+                }
+
+                foreach (var directory in Directory.EnumerateDirectories(folder))
+                {
+                    if (HasFiles(directory, pattern, depth++))
+                        return true;
+                }
+            }
+            catch { }
+
+            return false;
         }
 
         private ClassificationSpan GetSpan(SnapshotSpan span, Group group, IClassificationType type)

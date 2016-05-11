@@ -5,7 +5,7 @@
 - [x] Support all known .ignore files
 - [x] Mark paths that doesn't hit any files
 - [x] Hover QuickInfo for file match details
-- [ ] Support globbing/minimatch
+- [x] Support globbing/minimatch
 - [ ] Command to remove all lines that matches nothing
 - [ ] Intellisense for file paths
 
