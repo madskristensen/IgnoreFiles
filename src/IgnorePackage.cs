@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 
@@ -23,7 +24,7 @@ namespace IgnoreFiles
                     // Load the package when options are needed
                     var shell = (IVsShell)GetGlobalService(typeof(SVsShell));
                     IVsPackage package;
-                    shell.LoadPackage(ref PackageGuids.guidPackage, out package);
+                    ErrorHandler.ThrowOnFailure(shell.LoadPackage(ref PackageGuids.guidPackage, out package));
                 }
 
                 return _options;
