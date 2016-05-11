@@ -1,10 +1,9 @@
+// GIT
+[$RootKey$\ShellFileAssociations\.gitignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
 
 // Team Foundation
 [$RootKey$\ShellFileAssociations\.tfignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
-
-// GIT
-[$RootKey$\ShellFileAssociations\.gitignore]
 "DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
 
 // Mercurial

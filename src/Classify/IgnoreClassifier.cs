@@ -12,15 +12,15 @@ namespace IgnoreFiles
         private IClassificationType _symbol, _comment, _path, _operator;
         private Regex _commentRegex = new Regex(@"(?<!\\)(#.+)", RegexOptions.Compiled);
         private Regex _pathRegex = new Regex(@"(?<path>^[^:#\r\n]+)", RegexOptions.Compiled);
-        private Regex _opRegex = new Regex(@"(?<!\\)\[([0-9-]+)\]", RegexOptions.Compiled);
+        private Regex _operatorRegex = new Regex(@"(?<!\\)\[([0-9-]+)\]", RegexOptions.Compiled);
         private Regex _symbolRegex = new Regex(@"^(?<name>syntax)(?::[^#:]+)", RegexOptions.Compiled);
 
         public IgnoreClassifier(IClassificationTypeRegistryService registry)
         {
-            _symbol = registry.GetClassificationType(IgnoreClassificationTypes.Keyword);
             _comment = registry.GetClassificationType(PredefinedClassificationTypeNames.Comment);
             _path = registry.GetClassificationType(IgnoreClassificationTypes.Path);
             _operator = registry.GetClassificationType(IgnoreClassificationTypes.Operator);
+            _symbol = registry.GetClassificationType(IgnoreClassificationTypes.Keyword);
         }
 
         public IList<ClassificationSpan> GetClassificationSpans(SnapshotSpan span)
@@ -61,7 +61,7 @@ namespace IgnoreFiles
             var path = GetSpan(span, pathMatch.Groups["path"], _path);
             if (path != null)
             {
-                foreach (Match opMatch in _opRegex.Matches(text))
+                foreach (Match opMatch in _operatorRegex.Matches(text))
                 {
                     list.Add(GetSpan(span, opMatch.Groups[0], _operator));
                 }

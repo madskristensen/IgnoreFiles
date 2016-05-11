@@ -1,6 +1,6 @@
 # Roadmap
 
-- [x] Colorizer
+- [x] Syntax highlighting
 - [x] File icons for Solution Explorer
 - [x] Support all known .ignore files
 
