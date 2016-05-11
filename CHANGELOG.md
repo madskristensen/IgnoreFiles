@@ -8,6 +8,7 @@
 - [x] Support globbing/minimatch
 - [ ] Command to remove all lines that matches nothing
 - [ ] Intellisense for file paths
+- [ ] Options page
 
 Features that have a checkmark are complete and available for
 download in the

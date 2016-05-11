@@ -8,15 +8,11 @@ namespace IgnoreFiles
     public static class IgnoreClassificationTypes
     {
         public const string Keyword = "Ignore_keyword";
-        public const string Operator = "Ignore_operator";
         public const string Path = "Ignore_path";
         public const string PathNoMatch = "Ignore_path_no_match";
 
         [Export, Name(Keyword)]
         public static ClassificationTypeDefinition IgnoreClassificationBold { get; set; }
-
-        [Export, Name(Operator)]
-        public static ClassificationTypeDefinition IgnoreClassificationOperator { get; set; }
 
         [Export, Name(Path)]
         public static ClassificationTypeDefinition IgnoreClassificationPath { get; set; }
@@ -37,20 +33,6 @@ namespace IgnoreFiles
             ForegroundBrush = Brushes.OrangeRed;
             IsBold = true;
             DisplayName = "Ignore Keyword";
-        }
-    }
-
-    [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = IgnoreClassificationTypes.Operator)]
-    [Name(IgnoreClassificationTypes.Operator)]
-    [Order(After = IgnoreClassificationTypes.Path)]
-    [UserVisible(true)]
-    internal sealed class IgnoreOperatorFormatDefinition : ClassificationFormatDefinition
-    {
-        public IgnoreOperatorFormatDefinition()
-        {
-            IsItalic = true;
-            DisplayName = "Ignore Operator";
         }
     }
 

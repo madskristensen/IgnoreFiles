@@ -17,12 +17,20 @@ namespace IgnoreFiles
         [Import]
         ITextDocumentFactoryService TextDocumentFactoryService { get; set; }
 
-        public IClassifier GetClassifier(ITextBuffer textBuffer)
+        public IClassifier GetClassifier(ITextBuffer buffer)
         {
             ITextDocument document;
-            if (TextDocumentFactoryService.TryGetTextDocument(textBuffer, out document))
+
+            if (TextDocumentFactoryService.TryGetTextDocument(buffer, out document))
             {
-                return textBuffer.Properties.GetOrCreateSingletonProperty(() => new IgnoreClassifier(Registry, document.FilePath));
+                var classifier = buffer.Properties.GetOrCreateSingletonProperty(() => new IgnoreClassifier(Registry, buffer, document.FilePath));
+
+                document.FileActionOccurred += (s, e) => {
+                    if (e.FileActionType == FileActionTypes.ContentSavedToDisk)
+                        classifier.Reset();
+                };
+
+                return classifier;
             }
 
             return null;
