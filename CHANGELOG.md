@@ -4,10 +4,10 @@
 - [x] File icons for Solution Explorer
 - [x] Support all known .ignore files
 - [x] Mark paths that doesn't hit any files
+- [x] Hover QuickInfo for file match details
 - [ ] Support globbing/minimatch
 - [ ] Command to remove all lines that matches nothing
 - [ ] Intellisense for file paths
-- [ ] Hover QuickInfo for file match details
 
 Features that have a checkmark are complete and available for
 download in the
