@@ -21,7 +21,7 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 - Non-matching file paths are grayed out
 
 ### Syntax highlighing
-Syntax highlighting for all any type of .ignore file.
+Syntax highlighting for all types of .ignore file.
 
 ![Syntax Highlighting](art/syntax-highlighting.png)
 
@@ -31,7 +31,7 @@ Correct file icons will be shown for all the .ignore files.
 ![Icons](art/icons.png)
 
 ### Non-matches
-If a file path doesn't point to a file or foldre, then it
+If a file path doesn't point to a file or folder, then it
 is being grayed out.
 
 ![Non Match](art/non-match.png)
