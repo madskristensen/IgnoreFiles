@@ -18,6 +18,7 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 
 - Syntax highlighting
 - File icons in Solution Explorer
+- Non-matching file paths are grayed out
 
 ### Syntax highlighing
 Syntax highlighting for all any type of .ignore file.
@@ -28,6 +29,12 @@ Syntax highlighting for all any type of .ignore file.
 Correct file icons will be shown for all the .ignore files.
 
 ![Icons](art/icons.png)
+
+### Non-matches
+If a file path doesn't point to a file or foldre, then it
+is being grayed out.
+
+![Non Match](art/non-match.png)
 
 ## Contribute
 Check out the [contribution guidelines](CONTRIBUTING.md)
