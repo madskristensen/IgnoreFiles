@@ -7,9 +7,9 @@
 - [x] Hover QuickInfo for file match details
 - [x] Support globbing/minimatch
 - [x] Command to remove all lines that matches nothing
+- [x] Package load on .ignore file open
 - [ ] Intellisense for file paths
 - [ ] Options page
-- [ ] Package load on .ignore file open
 
 Features that have a checkmark are complete and available for
 download in the

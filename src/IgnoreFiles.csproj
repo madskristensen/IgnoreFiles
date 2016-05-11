@@ -55,6 +55,7 @@
     <Compile Include="Classify\IgnoreClassificationTypes.cs" />
     <Compile Include="Classify\IgnoreClassifier.cs" />
     <Compile Include="Classify\IgnoreClassifierProvider.cs" />
+    <Compile Include="ContentType\IgnoreCreationListener.cs" />
     <Compile Include="ContentType\IgnoreContentTypeDefinition.cs" />
     <Compile Include="Helpers\ProjectHelpers.cs" />
     <Compile Include="IgnoreCommandTable.cs">

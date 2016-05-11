@@ -7,7 +7,7 @@
 
     <Commands package="guidPackage">
         <Groups>
-            <Group guid="guidPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+            <Group guid="guidPackageCmdSet" id="MyMenuGroup" priority="0x0100">
                 <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_CODEWIN"/>
             </Group>
         </Groups>
