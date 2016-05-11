@@ -96,7 +96,7 @@ namespace IgnoreFiles
                 return _pathNoMatch;
 
             // Turns [Rr]elease into Release
-            pattern = Regex.Replace(pattern, @"\[(\S)\1\]", "$1").Trim();
+            pattern = CleanPattern(pattern);
 
             if (!_cache.ContainsKey(pattern))
             {
@@ -109,6 +109,11 @@ namespace IgnoreFiles
             }
 
             return _cache[pattern] ? _path : _pathNoMatch;
+        }
+
+        public static string CleanPattern(string pattern)
+        {
+            return Regex.Replace(pattern, @"\[(\S)\1\]", "$1").Trim();
         }
 
         private void ProcessPath(string pattern, SnapshotSpan span)

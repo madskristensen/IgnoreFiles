@@ -12,6 +12,8 @@ namespace IgnoreFiles
 
         public IEnumerable<ITagSpan<IErrorTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
+            var list = new List<TagSpan<ErrorTag>>();
+
             foreach (SnapshotSpan currSpan in spans)
             {
                 var text = currSpan.GetText();
@@ -20,10 +22,12 @@ namespace IgnoreFiles
                 {
                     var length = text.Contains(" ") ? text.IndexOf(" ") : text.Length;
                     var span = new SnapshotSpan(currSpan.Snapshot, currSpan.Start, length);
-                    var tag = new ErrorTag(PredefinedErrorTypeNames.SyntaxError);
-                    yield return new TagSpan<ErrorTag>(span, tag);
+                    var tag = new ErrorTag(PredefinedErrorTypeNames.SyntaxError, "foo bar");
+                    list.Add(new TagSpan<ErrorTag>(span, tag));
                 }
             }
+
+            return list;
         }
 
         public event EventHandler<SnapshotSpanEventArgs> TagsChanged

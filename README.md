@@ -21,6 +21,7 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 - Non-matching file paths are grayed out
 - Hover tooltips show path details
 - Button to remove all non-matching paths
+- Validation
 
 ### Syntax highlighing
 Syntax highlighting for all types of .ignore file.
@@ -31,6 +32,17 @@ Syntax highlighting for all types of .ignore file.
 Correct file icons will be shown for all the .ignore files.
 
 ![Icons](art/icons.png)
+
+### Tooltips
+Hovering over any path entry will give details about what
+files the path points to.
+
+![Tooltip Short](art/tooltip-short.png)
+
+The tooltip shows the first 20 files found, but will show
+how many more files are matching the path.
+
+![Tooltip Long](art/tooltip-long.png)
 
 ### Non-matches
 If a file path doesn't point to a file or folder, then it
@@ -43,6 +55,13 @@ Right-click in any .ignore file and select
 *Remove non-matching entries*.
 
 ![Context menu](art/context-menu.png)
+
+### Validation
+Validation helps you avoid typos and other mistakes. For
+instance, it will catch the user of **../** which is not
+allowed in .ignore files.
+
+![Validation](art/validation.png)
 
 ## Settings
 Various settings are available in the **Tools -> Options**

@@ -9,7 +9,7 @@
 - [x] Command to remove all lines that matches nothing
 - [x] Package load on .ignore file open
 - [x] Options page
-- [ ] Hover tooltip to show matches files 
+- [x] Hover tooltip to show matched files 
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
 

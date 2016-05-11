@@ -75,8 +75,8 @@
     <Compile Include="source.extension.cs">
       <DependentUpon>source.extension.vsixmanifest</DependentUpon>
     </Compile>
-    <Compile Include="Tagger\IgnoreErrorTagger.cs" />
-    <Compile Include="Tagger\IgnoreErrorTaggerProvider.cs" />
+    <Compile Include="Validation\IgnoreErrorTagger.cs" />
+    <Compile Include="Validation\IgnoreErrorTaggerProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\LICENSE">

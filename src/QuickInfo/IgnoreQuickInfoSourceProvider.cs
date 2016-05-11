@@ -15,9 +15,19 @@ namespace IgnoreFiles
         [Import]
         IClassifierAggregatorService _classifierService = null;
 
-        public IQuickInfoSource TryCreateQuickInfoSource(ITextBuffer textBuffer)
+        [Import]
+        ITextDocumentFactoryService TextDocumentFactoryService = null;
+
+        public IQuickInfoSource TryCreateQuickInfoSource(ITextBuffer buffer)
         {
-            return textBuffer.Properties.GetOrCreateSingletonProperty(() => new IgnoreQuickInfo(textBuffer, _classifierService));
+            ITextDocument document;
+
+            if (TextDocumentFactoryService.TryGetTextDocument(buffer, out document))
+            {
+                return buffer.Properties.GetOrCreateSingletonProperty(() => new IgnoreQuickInfo(buffer, _classifierService, document));
+            }
+
+            return null;
         }
     }
 }
