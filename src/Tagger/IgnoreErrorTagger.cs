@@ -8,16 +8,15 @@ namespace IgnoreFiles
 {
     class IgnoreErrorTagger : ITagger<IErrorTag>
     {
-        private const string _searchText = "../";
+        private const string _relativePattern = "../";
 
         public IEnumerable<ITagSpan<IErrorTag>> GetTags(NormalizedSnapshotSpanCollection spans)
         {
             foreach (SnapshotSpan currSpan in spans)
             {
                 var text = currSpan.GetText();
-                int loc = text.IndexOf(_searchText, StringComparison.Ordinal);
 
-                if (loc > -1)
+                if (text.Contains(_relativePattern))
                 {
                     var length = text.Contains(" ") ? text.IndexOf(" ") : text.Length;
                     var span = new SnapshotSpan(currSpan.Snapshot, currSpan.Start, length);

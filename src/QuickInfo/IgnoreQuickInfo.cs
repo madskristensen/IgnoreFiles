@@ -19,11 +19,7 @@ namespace IgnoreFiles
         {
             applicableToSpan = null;
 
-            if (!IgnorePackage.Options.ShowTooltip)
-                return;
-
             var buffer = session.TextView.TextBuffer;
-
             SnapshotPoint? point = session.GetTriggerPoint(buffer.CurrentSnapshot);
 
             if (!point.HasValue)
@@ -39,10 +35,15 @@ namespace IgnoreFiles
                 if (tag.ClassificationType.IsOfType(IgnoreClassificationTypes.PathNoMatch))
                 {
                     string text = tag.Span.GetText();
+
+                    // Only show error tooltips
+                    if (!text.Contains("../") && !IgnorePackage.Options.ShowTooltip)
+                        continue;
+
                     string tooltip = $"The path \"{text}\" does not point to any existing file";
 
                     if (text.StartsWith("../"))
-                        tooltip = "The entry start with \"../\" which is not allowed";
+                        tooltip = "The entry contains a relative path segment which is not allowed";
 
                     applicableToSpan = buffer.CurrentSnapshot.CreateTrackingSpan(tag.Span.Span, SpanTrackingMode.EdgeNegative);
                     qiContent.Add(tooltip);
