@@ -19,6 +19,8 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 - Syntax highlighting
 - File icons in Solution Explorer
 - Non-matching file paths are grayed out
+- Hover tooltips show path details
+- Button to remove all non-matching paths
 
 ### Syntax highlighing
 Syntax highlighting for all types of .ignore file.
@@ -35,6 +37,12 @@ If a file path doesn't point to a file or folder, then it
 is being grayed out.
 
 ![Non Match](art/non-match.png)
+
+### Remove non-matches
+Right-click in any .ignore file and select
+*Remove non-matching entries*.
+
+![Context menu](art/context-menu.png)
 
 ## Settings
 Various settings are available in the **Tools -> Options**
