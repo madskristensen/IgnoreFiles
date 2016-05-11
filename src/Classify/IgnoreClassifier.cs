@@ -14,7 +14,7 @@ namespace IgnoreFiles
 {
     public class IgnoreClassifier : IClassifier
     {
-        private IClassificationType _symbol, _comment, _path, _pathNoMatch, _operator;
+        private IClassificationType _symbol, _comment, _path, _pathNoMatch;
         private static Regex _commentRegex = new Regex(@"(?<!\\)(#.+)", RegexOptions.Compiled);
         private static Regex _pathRegex = new Regex(@"(?<path>^[^:#\r\n]+)", RegexOptions.Compiled);
         private static Regex _symbolRegex = new Regex(@"^(?<name>syntax)(?::[^#:]+)", RegexOptions.Compiled);
