@@ -8,7 +8,6 @@ namespace IgnoreFiles
 {
     [Export(typeof(IDropHandlerProvider))]
     [DropFormat("CF_VSSTGPROJECTITEMS")]
-    [DropFormat("text")]
     [DropFormat("FileDrop")]
     [Name("IgnoreDropHandler")]
     [ContentType(IgnoreContentTypeDefinition.IgnoreContentType)]

@@ -21,7 +21,8 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 - Non-matching file paths are grayed out
 - Hover tooltips show path details
 - Button to remove all non-matching paths
-- Validation
+- Drag 'n drop support for files and folders
+- Syntax validation
 
 ### Syntax highlighing
 Syntax highlighting for all types of .ignore file.
@@ -55,6 +56,11 @@ Right-click in any .ignore file and select
 *Remove non-matching entries*.
 
 ![Context menu](art/context-menu.png)
+
+### Drag 'n drop
+You can drag any file or folder from Solution Explorer or
+from the file system using Windows Explorer. This will add
+the correct relative path to the .ignore file.
 
 ### Validation
 Validation helps you avoid typos and other mistakes. For

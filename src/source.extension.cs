@@ -13,6 +13,6 @@ namespace IgnoreFiles
         public const string Language = "en-US";
         public const string Version = "1.0";
         public const string Author = "Mads Kristensen";
-        public const string Tags = "git, tfs, svn, hg, ignore";
+        public const string Tags = "git, tfs, svn, mercurial, ignore, npm,";
     }
 }

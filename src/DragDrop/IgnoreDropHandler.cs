@@ -30,7 +30,7 @@ namespace IgnoreFiles
             if (line.Start < position)
                 text = Environment.NewLine + text;
 
-                using (var edit = _view.TextBuffer.CreateEdit())
+            using (var edit = _view.TextBuffer.CreateEdit())
             {
                 edit.Insert(position, text);
                 edit.Apply();

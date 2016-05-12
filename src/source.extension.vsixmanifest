@@ -9,7 +9,7 @@
         <ReleaseNotes>https://github.com/madskristensen/IgnoreFiles/blob/master/CHANGELOG.md</ReleaseNotes>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\Preview.png</PreviewImage>
-        <Tags>git, tfs, svn, hg, ignore</Tags>
+        <Tags>git, tfs, svn, mercurial, ignore, npm,</Tags>
     </Metadata>
     <Installation>
         <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />
