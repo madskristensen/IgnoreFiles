@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Timers;
 using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
@@ -19,9 +20,11 @@ namespace IgnoreFiles
         private static Regex _pathRegex = new Regex(@"(?<path>^[^:#\r\n]+)", RegexOptions.Compiled);
         private static Regex _symbolRegex = new Regex(@"^(?<name>syntax)(?::[^#:]+)", RegexOptions.Compiled);
         private ConcurrentDictionary<string, bool> _cache = new ConcurrentDictionary<string, bool>();
+        private Queue<Tuple<string, SnapshotSpan>> _queue = new Queue<Tuple<string, SnapshotSpan>>();
         private string _root;
         private ITextBuffer _buffer;
         private bool _isResetting;
+        private Timer _timer;
 
         public IgnoreClassifier(IClassificationTypeRegistryService registry, ITextBuffer buffer, string fileName)
         {
@@ -31,6 +34,10 @@ namespace IgnoreFiles
             _path = registry.GetClassificationType(IgnoreClassificationTypes.Path);
             _pathNoMatch = registry.GetClassificationType(IgnoreClassificationTypes.PathNoMatch);
             _symbol = registry.GetClassificationType(IgnoreClassificationTypes.Keyword);
+
+            _timer = new Timer(250);
+            _timer.Elapsed += TimerElapsed;
+            _timer.Start();
         }
 
         public IList<ClassificationSpan> GetClassificationSpans(SnapshotSpan span)
@@ -84,6 +91,7 @@ namespace IgnoreFiles
             {
                 _isResetting = true;
                 _cache.Clear();
+                _queue.Clear();
                 var span = new SnapshotSpan(_buffer.CurrentSnapshot, 0, _buffer.CurrentSnapshot.Length);
                 OnClassificationChanged(span);
                 _isResetting = false;
@@ -95,20 +103,47 @@ namespace IgnoreFiles
             if (pattern.StartsWith("../"))
                 return _pathNoMatch;
 
-            // Turns [Rr]elease into Release
             pattern = CleanPattern(pattern);
 
             if (!_cache.ContainsKey(pattern))
             {
-                Task.Run(() =>
-                {
-                    ProcessPath(pattern, span);
-                });
+                _queue.Enqueue(Tuple.Create(pattern, span));
 
                 return _path;
             }
 
             return _cache[pattern] ? _path : _pathNoMatch;
+        }
+
+        private void TimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            if (_queue.Count == 0)
+                return;
+
+            _timer.Stop();
+
+            Task.Run(() =>
+            {
+                try
+                {
+                    do
+                    {
+                        var t = _queue.Dequeue();
+
+                        if (_buffer.CurrentSnapshot.Version == t.Item2.Snapshot.Version)
+                            ProcessPath(t.Item1, t.Item2);
+
+                    } while (_queue.Count > 0);
+                }
+                catch (Exception)
+                {
+                    // TODO: Add logging
+                }
+                finally
+                {
+                    _timer.Start();
+                }
+            });
         }
 
         public static string CleanPattern(string pattern)
