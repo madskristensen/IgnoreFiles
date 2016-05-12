@@ -35,7 +35,9 @@ namespace IgnoreFiles
         {
             _options = (Options)GetDialogPage(typeof(Options));
 
+            OutputWindowTraceListener.Initialize(this, Vsix.Name);
             RemoveNonMatchesCommand.Initialize(this);
+
             base.Initialize();
         }
     }

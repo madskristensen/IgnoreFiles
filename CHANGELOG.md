@@ -10,7 +10,7 @@
 - [x] Package load on .ignore file open
 - [x] Options page
 - [x] Hover tooltip to show matched files 
-- [ ] Add error logging
+- [x] Add error logging
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
 - [ ] Make files in tooltip clickable (opens file)

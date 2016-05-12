@@ -135,9 +135,9 @@ namespace IgnoreFiles
 
                     } while (_queue.Count > 0);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // TODO: Add logging
+                    System.Diagnostics.Trace.Write(ex);
                 }
                 finally
                 {
@@ -206,7 +206,10 @@ namespace IgnoreFiles
                         return true;
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Write(ex);
+            }
 
             return false;
         }
