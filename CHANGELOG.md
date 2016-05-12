@@ -11,9 +11,11 @@
 - [x] Options page
 - [x] Hover tooltip to show matched files 
 - [x] Add error logging
+- [ ] Full treeview in tooltip
+- [ ] Make files in tooltip clickable (selects file, opens file)
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
-- [ ] Make files in tooltip clickable (opens file)
+- [ ] Drag 'n drop files onto .ignore file
 
 Features that have a checkmark are complete and available for
 download in the

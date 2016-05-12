@@ -6,7 +6,7 @@ public class Logger : TraceListener
 {
     private string _name;
     private IVsOutputWindowPane pane;
-    private object _syncRoot = new object();
+    private static object _syncRoot = new object();
     private IServiceProvider _provider;
 
     private Logger(IServiceProvider provider, string name)
@@ -23,10 +23,11 @@ public class Logger : TraceListener
         Trace.AutoFlush = true;
     }
 
-    public static void Log(object message)
-    {
+    public static void Log(object message) =>
         Trace.Write(message);
-    }
+
+    public override void WriteLine(string message) =>
+        Write(message);
 
     public override void Write(string message)
     {
@@ -34,11 +35,6 @@ public class Logger : TraceListener
         {
             pane.OutputString(DateTime.Now.ToString() + ": " + message + Environment.NewLine);
         }
-    }
-
-    public override void WriteLine(string message)
-    {
-        Write(message);
     }
 
     private bool EnsurePane()
