@@ -46,7 +46,7 @@ namespace IgnoreFiles
             var button = (OleMenuCommand)sender;
             button.Enabled = button.Visible = false;
 
-            _buffer = ProjectHelpers.GetCurentTextBuffer();
+            _buffer = Helpers.GetCurentTextBuffer();
 
             if (_buffer != null && _buffer.ContentType.IsOfType(IgnoreContentTypeDefinition.IgnoreContentType))
             {

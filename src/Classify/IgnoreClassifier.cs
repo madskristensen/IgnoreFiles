@@ -9,7 +9,6 @@ using System.Timers;
 using Microsoft.VisualStudio.Language.StandardClassification;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
-using Minimatch;
 
 namespace IgnoreFiles
 {
@@ -146,7 +145,7 @@ namespace IgnoreFiles
 
         private void ProcessPath(string pattern, SnapshotSpan span)
         {
-            bool hasFiles = HasFiles(_root, pattern); ;
+            bool hasFiles = IgnoreQuickInfo.GetFiles(_root, pattern).Any();
 
             _cache[pattern] = hasFiles;
 
@@ -160,37 +159,6 @@ namespace IgnoreFiles
         {
             if (_buffer.CurrentSnapshot.Version == span.Snapshot.Version)
                 ClassificationChanged?.Invoke(this, new ClassificationChangedEventArgs(span));
-        }
-
-        private bool HasFiles(string folder, string pattern)
-        {
-            var ignorePaths = IgnorePackage.Options.GetIgnorePatterns();
-
-            try
-            {
-                foreach (var file in Directory.EnumerateFileSystemEntries(folder).Where(f => !ignorePaths.Any(p => folder.Contains(p))))
-                {
-                    if (pattern.EndsWith("/") && !File.GetAttributes(file).HasFlag(FileAttributes.Directory))
-                        continue;
-
-                    string relative = file.Replace(_root, "").Replace("\\", "/").Trim('/');
-
-                    if (Minimatcher.Check(relative, pattern.TrimEnd('/'), new Minimatch.Options { AllowWindowsPaths = true, MatchBase = true }))
-                        return true;
-                }
-
-                foreach (var directory in Directory.EnumerateDirectories(folder).Select(d => d + "\\"))
-                {
-                    if (!ignorePaths.Any(p => directory.Contains(p)) && HasFiles(directory, pattern))
-                        return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.Write(ex);
-            }
-
-            return false;
         }
 
         private ClassificationSpan GetSpan(SnapshotSpan span, Group group, IClassificationType type)

@@ -5,12 +5,12 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
+using Minimatch;
 
 namespace IgnoreFiles
 {
-    class ProjectHelpers
+    class Helpers
     {
-
         public static ITextBuffer GetCurentTextBuffer()
         {
             return GetCurentTextView().TextBuffer;
@@ -37,6 +37,13 @@ namespace IgnoreFiles
         private static IComponentModel GetComponentModel()
         {
             return (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
+        }
+
+        private static readonly Minimatch.Options _options = new Minimatch.Options { AllowWindowsPaths = true, MatchBase = true };
+
+        public static bool CheckGlobbing(string path, string pattern)
+        {
+            return Minimatcher.Check(path, pattern.TrimEnd('/'), _options);
         }
     }
 }
