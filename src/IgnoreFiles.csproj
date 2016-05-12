@@ -56,7 +56,7 @@
     <Compile Include="Classify\IgnoreClassifier.cs" />
     <Compile Include="Classify\IgnoreClassifierProvider.cs" />
     <Compile Include="ContentType\IgnoreContentTypeDefinition.cs" />
-    <Compile Include="Helpers\OutputWindowTraceListener.cs" />
+    <Compile Include="Helpers\Logger.cs" />
     <Compile Include="Helpers\ProjectHelpers.cs" />
     <Compile Include="IgnoreCommandTable.cs">
       <AutoGen>True</AutoGen>

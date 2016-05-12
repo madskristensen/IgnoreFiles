@@ -11,8 +11,8 @@ namespace IgnoreFiles
         [Category("General settings")]
         [DisplayName("Ignore patterns")]
         [Description("A semicolon-separated list of strings. Any file containing one of the strings in the path will be ignored.")]
-        [DefaultValue(@"\node_modules\;\.git\")]
-        public string IgnorePatterns { get; set; } = @"\node_modules\;\.git\";
+        [DefaultValue(@"\node_modules;\.git;\packages")]
+        public string IgnorePatterns { get; set; } = @"\node_modules;\.git;\packages";
 
         [Category("General settings")]
         [DisplayName("Show hover tooltip")]

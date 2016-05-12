@@ -76,7 +76,7 @@ namespace IgnoreFiles
             if (!pathMatch.Success)
                 return list;
 
-            var pathType = GetPathClassificationType(pathMatch.Groups["path"].Value, span);
+            var pathType = GetPathClassificationType(pathMatch.Groups["path"].Value.Trim(), span);
 
             var path = GetSpan(span, pathMatch.Groups["path"], pathType);
             if (path != null)
@@ -102,8 +102,6 @@ namespace IgnoreFiles
         {
             if (pattern.StartsWith("../"))
                 return _pathNoMatch;
-
-            pattern = CleanPattern(pattern);
 
             if (!_cache.ContainsKey(pattern))
             {
@@ -137,7 +135,7 @@ namespace IgnoreFiles
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Trace.Write(ex);
+                    Logger.Log(ex);
                 }
                 finally
                 {
@@ -146,31 +144,9 @@ namespace IgnoreFiles
             });
         }
 
-        public static string CleanPattern(string pattern)
-        {
-            return Regex.Replace(pattern, @"\[(\S)\1\]", "$1").Trim();
-        }
-
         private void ProcessPath(string pattern, SnapshotSpan span)
         {
-            bool hasFiles = false;
-
-            if (!pattern.Contains('*')) // Example: packages/ or local.properties
-            {
-                var path = Path.Combine(_root, pattern);
-
-                // It's known that the expression is a folder
-                if (pattern.EndsWith("/") && Directory.Exists(path))
-                    hasFiles = true;
-
-                // Could be either a folder or a file
-                if (File.Exists(path) || Directory.Exists(path))
-                    hasFiles = true;
-            }
-            else
-            {
-                hasFiles = HasFiles(_root, pattern);
-            }
+            bool hasFiles = HasFiles(_root, pattern); ;
 
             _cache[pattern] = hasFiles;
 
@@ -192,15 +168,18 @@ namespace IgnoreFiles
 
             try
             {
-                foreach (var file in Directory.EnumerateFileSystemEntries(folder))
+                foreach (var file in Directory.EnumerateFileSystemEntries(folder).Where(f => !ignorePaths.Any(p => folder.Contains(p))))
                 {
-                    string relative = file.Replace(_root, "").TrimStart('\\');
+                    if (pattern.EndsWith("/") && !File.GetAttributes(file).HasFlag(FileAttributes.Directory))
+                        continue;
 
-                    if (Minimatcher.Check(relative, pattern, new Minimatch.Options { AllowWindowsPaths = true }))
+                    string relative = file.Replace(_root, "").Replace("\\", "/").Trim('/');
+
+                    if (Minimatcher.Check(relative, pattern.TrimEnd('/'), new Minimatch.Options { AllowWindowsPaths = true, MatchBase = true }))
                         return true;
                 }
 
-                foreach (var directory in Directory.EnumerateDirectories(folder))
+                foreach (var directory in Directory.EnumerateDirectories(folder).Select(d => d + "\\"))
                 {
                     if (!ignorePaths.Any(p => directory.Contains(p)) && HasFiles(directory, pattern))
                         return true;

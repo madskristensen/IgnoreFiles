@@ -60,8 +60,8 @@ namespace IgnoreFiles
                     if (!IgnorePackage.Options.ShowTooltip)
                         continue;
 
-                    string text = IgnoreClassifier.CleanPattern(tag.Span.GetText());
-                    var files = GetFiles(_root, text);
+                    string pattern = tag.Span.GetText().Trim();
+                    var files = GetFiles(_root, pattern);
 
                     applicableToSpan = buffer.CurrentSnapshot.CreateTrackingSpan(tag.Span.Span, SpanTrackingMode.EdgeNegative);
                     qiContent.Add(string.Join(Environment.NewLine, files.Take(_maxFiles)));
@@ -80,19 +80,20 @@ namespace IgnoreFiles
             var ignorePaths = IgnorePackage.Options.GetIgnorePatterns();
             var files = new List<string>();
 
-            if (ignorePaths.Any(i => folder.Contains(i)))
-                return files;
-
             try
             {
-                foreach (var file in Directory.EnumerateFileSystemEntries(folder))
+                foreach (var file in Directory.EnumerateFileSystemEntries(folder).Where(f => !ignorePaths.Any(p => folder.Contains(p))))
                 {
-                    string relative = file.Replace(_root, "").TrimStart('\\');
-                    if (Minimatcher.Check(relative, pattern, new Minimatch.Options { AllowWindowsPaths = true }))
+                    if (pattern.EndsWith("/") && !File.GetAttributes(file).HasFlag(FileAttributes.Directory))
+                        continue;
+
+                    string relative = file.Replace(_root, "").Replace("\\", "/").Trim('/');
+
+                    if (Minimatcher.Check(relative, pattern.TrimEnd('/'), new Minimatch.Options { AllowWindowsPaths = true, MatchBase = true }))
                         files.Add(relative);
                 }
 
-                foreach (var directory in Directory.EnumerateDirectories(folder))
+                foreach (var directory in Directory.EnumerateDirectories(folder).Where(d => !ignorePaths.Any(i => d.Contains(i))))
                     files.AddRange(GetFiles(directory, pattern));
             }
             catch { }
