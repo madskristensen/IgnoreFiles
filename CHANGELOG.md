@@ -1,6 +1,6 @@
 # Roadmap
 
-- [ ] Support for Visual Studio "15"
+- [x] Support for Visual Studio "15"
 - [ ] Full treeview in tooltip
 - [ ] Make files in tooltip clickable (selects file, opens file)
 - [ ] Intellisense for file paths
