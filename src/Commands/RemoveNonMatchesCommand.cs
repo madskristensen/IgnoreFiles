@@ -61,22 +61,35 @@ namespace IgnoreFiles
             if (!_buffer.Properties.TryGetProperty(typeof(IgnoreClassifier), out classifier))
                 return;
 
-            using (var edit = _buffer.CreateEdit())
+            try
             {
-                var lines = _buffer.CurrentSnapshot.Lines.Reverse();
+                classifier.IsAsynchronous = false;
 
-                foreach (var line in lines)
+                using (var edit = _buffer.CreateEdit())
                 {
-                    var span = new SnapshotSpan(line.Start, line.LengthIncludingLineBreak);
-                    var tags = classifier.GetClassificationSpans(span);
+                    var lines = _buffer.CurrentSnapshot.Lines.Reverse();
 
-                    if (tags.Any(t => t.ClassificationType.IsOfType(IgnoreClassificationTypes.PathNoMatch)))
+                    foreach (var line in lines)
                     {
-                        edit.Delete(span.Span);
-                    }
-                }
+                        var span = new SnapshotSpan(line.Start, line.LengthIncludingLineBreak);
+                        var tags = classifier.GetClassificationSpans(span);
 
-                edit.Apply();
+                        if (tags.Any(t => t.ClassificationType.IsOfType(IgnoreClassificationTypes.PathNoMatch)))
+                        {
+                            edit.Delete(span.Span);
+                        }
+                    }
+
+                    edit.Apply();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log(ex);
+            }
+            finally
+            {
+                classifier.IsAsynchronous = true;
             }
         }
     }

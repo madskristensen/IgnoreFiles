@@ -36,8 +36,9 @@ namespace IgnoreFiles
 
             _timer = new Timer(250);
             _timer.Elapsed += TimerElapsed;
-            _timer.Start();
         }
+
+        public bool IsAsynchronous { get; set; } = true;
 
         public IList<ClassificationSpan> GetClassificationSpans(SnapshotSpan span)
         {
@@ -104,7 +105,16 @@ namespace IgnoreFiles
 
             if (!_cache.ContainsKey(pattern))
             {
-                _queue.Enqueue(Tuple.Create(pattern, span));
+                if (IsAsynchronous)
+                {
+                    _queue.Enqueue(Tuple.Create(pattern, span));
+                    _timer.Start();
+                }
+                else
+                {
+                    ProcessPath(pattern, span);
+                    return GetPathClassificationType(pattern, span);
+                }
 
                 return _path;
             }
@@ -135,10 +145,6 @@ namespace IgnoreFiles
                 catch (Exception ex)
                 {
                     Logger.Log(ex);
-                }
-                finally
-                {
-                    _timer.Start();
                 }
             });
         }
