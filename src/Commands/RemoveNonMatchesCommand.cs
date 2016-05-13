@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Linq;
+using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 
@@ -61,9 +63,13 @@ namespace IgnoreFiles
             if (!_buffer.Properties.TryGetProperty(typeof(IgnoreClassifier), out classifier))
                 return;
 
+            var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
+            int linesRemoved = 0;
+
             try
             {
-                classifier.IsAsynchronous = false;
+                dte.StatusBar.Text = "Analyzing file and removing non-matches...";
+                dte.UndoContext.Open("Removed non-matches");
 
                 using (var edit = _buffer.CreateEdit())
                 {
@@ -72,11 +78,11 @@ namespace IgnoreFiles
                     foreach (var line in lines)
                     {
                         var span = new SnapshotSpan(line.Start, line.LengthIncludingLineBreak);
-                        var tags = classifier.GetClassificationSpans(span);
 
-                        if (tags.Any(t => t.ClassificationType.IsOfType(IgnoreClassificationTypes.PathNoMatch)))
+                        if (classifier.HasMatches(span))
                         {
                             edit.Delete(span.Span);
+                            linesRemoved += 1;
                         }
                     }
 
@@ -89,7 +95,8 @@ namespace IgnoreFiles
             }
             finally
             {
-                classifier.IsAsynchronous = true;
+                dte.StatusBar.Text = $"{linesRemoved} non-matching entries removed";
+                dte.UndoContext.Close();
             }
         }
     }

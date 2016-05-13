@@ -1,7 +1,6 @@
 # Roadmap
 
-- [x] Support for Visual Studio "15"
-- [x] Fix issue where not all non-matches are removed
+- [x] Write result of removing non-matches to statusbar
 - [ ] Full treeview in tooltip
 - [ ] Make files in tooltip clickable (selects file, opens file)
 - [ ] Intellisense for file paths
@@ -32,3 +31,5 @@ on the official Visual Studio extension gallery.
 - [x] Hover tooltip to show matched files 
 - [x] Add error logging
 - [x] Drag 'n drop files onto .ignore file
+- [x] Support for Visual Studio "15"
+- [x] Fix issue where not all non-matches are removed

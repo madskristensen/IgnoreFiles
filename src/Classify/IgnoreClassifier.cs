@@ -22,7 +22,7 @@ namespace IgnoreFiles
         private Queue<Tuple<string, SnapshotSpan>> _queue = new Queue<Tuple<string, SnapshotSpan>>();
         private string _root;
         private ITextBuffer _buffer;
-        private bool _isResetting;
+        private bool _isResetting, _isAsynchronous = true;
         private Timer _timer;
 
         public IgnoreClassifier(IClassificationTypeRegistryService registry, ITextBuffer buffer, string fileName)
@@ -38,7 +38,15 @@ namespace IgnoreFiles
             _timer.Elapsed += TimerElapsed;
         }
 
-        public bool IsAsynchronous { get; set; } = true;
+        public bool HasMatches(SnapshotSpan span)
+        {
+            try
+            {
+                _isAsynchronous = false;
+                return GetClassificationSpans(span).Any(t => t.ClassificationType.IsOfType(IgnoreClassificationTypes.PathNoMatch));
+            }
+            finally { _isAsynchronous = true; }
+        }
 
         public IList<ClassificationSpan> GetClassificationSpans(SnapshotSpan span)
         {
@@ -105,7 +113,7 @@ namespace IgnoreFiles
 
             if (!_cache.ContainsKey(pattern))
             {
-                if (IsAsynchronous)
+                if (_isAsynchronous)
                 {
                     _queue.Enqueue(Tuple.Create(pattern, span));
                     _timer.Start();
