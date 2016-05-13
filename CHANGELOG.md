@@ -1,17 +1,5 @@
 # Roadmap
 
-- [x] Syntax highlighting
-- [x] File icons for Solution Explorer
-- [x] Support all known .ignore files
-- [x] Mark paths that doesn't hit any files
-- [x] Hover QuickInfo for file match details
-- [x] Support globbing/minimatch
-- [x] Command to remove all lines that matches nothing
-- [x] Package load on .ignore file open
-- [x] Options page
-- [x] Hover tooltip to show matched files 
-- [x] Add error logging
-- [x] Drag 'n drop files onto .ignore file
 - [ ] Full treeview in tooltip
 - [ ] Make files in tooltip clickable (selects file, opens file)
 - [ ] Intellisense for file paths
@@ -28,6 +16,17 @@ on the official Visual Studio extension gallery.
 
 ## 1.0
 
-**2016-05-10**
+**2016-05-13**
 
-- [x] Initial release
+- [x] Syntax highlighting
+- [x] File icons for Solution Explorer
+- [x] Support all known .ignore files
+- [x] Mark paths that doesn't hit any files
+- [x] Hover QuickInfo for file match details
+- [x] Support globbing/minimatch
+- [x] Command to remove all lines that matches nothing
+- [x] Package load on .ignore file open
+- [x] Options page
+- [x] Hover tooltip to show matched files 
+- [x] Add error logging
+- [x] Drag 'n drop files onto .ignore file
