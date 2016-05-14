@@ -59,6 +59,9 @@ Right-click in any .ignore file and select
 
 ![Context menu](art/context-menu.png)
 
+This action can be undone by invoking the *Undo* command
+(ctrl-z).
+
 ### Drag 'n drop
 You can drag any file or folder from Solution Explorer or
 from the file system using Windows Explorer. This will add
@@ -75,13 +78,29 @@ allowed in .ignore files.
 Light bulbs appear in the margin to give you quick access
 to perform helpful actions.
 
-For matches:
-
+#### For matches:
 ![Light bulb matches](art/lightbulb-match.png)
 
-For non-matches:
+**Delete matching file entries...** will delete the matching
+files and folders from disk. If any of the files are part
+of a project in the solution, the project will be updated
+to reflect the deletion of the files.
 
+**Exclude matching entries from project...** will not delete
+the files and folder from disk, it will only remove any
+reference to them from the project.
+
+#### For non-matches:
 ![Light bulb non-matches](art/lightbulb-non-match.png)
+
+**Remove non-matching entry** will delete the current
+line from the .ignore file. This action can be undone by
+invoking the *Undo* command (ctrl-z).
+
+**Remove all non-matching entry** will delete all non-matching
+entries in the .ignore file. It does the same as the right-click
+command does. This action can be undone by invoking the
+*Undo* command (ctrl-z).
 
 ## Settings
 Various settings are available in the **Tools -> Options**
