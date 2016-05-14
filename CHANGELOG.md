@@ -5,6 +5,12 @@
 - [ ] Make files in tooltip clickable (selects file, opens file)
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
+- [ ] Glyph in margin to indicate folders
+- [ ] Light bulps support
+  - [ ] Remove non-matching entry
+  - [ ] Delete files that match
+  - [ ] Add matching files to project
+  - [ ] Remove matching files from project
 
 Features that have a checkmark are complete and available for
 download in the
