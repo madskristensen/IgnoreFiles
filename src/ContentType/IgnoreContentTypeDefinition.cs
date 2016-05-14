@@ -59,7 +59,7 @@ namespace IgnoreFiles
 
         [Export(typeof(FileExtensionToContentTypeDefinition))]
         [ContentType(IgnoreContentType)]
-        [FileExtension(".eslintegnore")]
+        [FileExtension(".eslintignore")]
         public FileExtensionToContentTypeDefinition EslintFileExtension { get; set; }
 
         [Export(typeof(FileExtensionToContentTypeDefinition))]
