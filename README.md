@@ -10,7 +10,8 @@ or get the [CI build](http://vsixgallery.com/extension/7ac24965-ea21-4108-9cac-6
 This extension supports *.gitignore (Git), .tfignore (Team Foundation),
 .hgignore (Mercurial), .npmignore (npm), .dockerignore (Docker),
 .chefignore (Chef), .cvsignore (CVS), .bzrignore (Bazaar),
-.jshintignore (JSHint), .eslintignore (ESLint), .cfignore (Cloud Foundry)*
+.jshintignore (JSHint), .eslintignore (ESLint), .cfignore (Cloud Foundry),
+.babelignore (Babel)*
 
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 

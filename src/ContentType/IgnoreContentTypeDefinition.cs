@@ -66,5 +66,10 @@ namespace IgnoreFiles
         [ContentType(IgnoreContentType)]
         [FileExtension(".cfignore")]
         public FileExtensionToContentTypeDefinition CloudFoundryFileExtension { get; set; }
+
+        [Export(typeof(FileExtensionToContentTypeDefinition))]
+        [ContentType(IgnoreContentType)]
+        [FileExtension(".babelignore")]
+        public FileExtensionToContentTypeDefinition BabelFileExtension { get; set; }
     }
 }
