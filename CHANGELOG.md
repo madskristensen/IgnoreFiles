@@ -1,16 +1,16 @@
 # Roadmap
 
 - [x] Write result of removing non-matches to statusbar
+- [x] Light bulps support
+  - [x] Remove non-matching entry
+  - [x] Remove non-matching entry in document
+  - [x] Delete files that match
+  - [x] Remove matching files from project
 - [ ] Full treeview in tooltip
 - [ ] Make files in tooltip clickable (selects file, opens file)
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
 - [ ] Glyph in margin to indicate folders
-- [ ] Light bulps support
-  - [ ] Remove non-matching entry
-  - [ ] Delete files that match
-  - [ ] Add matching files to project
-  - [ ] Remove matching files from project
 
 Features that have a checkmark are complete and available for
 download in the

@@ -23,6 +23,7 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 - Button to remove all non-matching paths
 - Drag 'n drop support for files and folders
 - Syntax validation
+- Light Bulbs for quick actions
 
 ### Syntax highlighing
 Syntax highlighting for all types of .ignore file.
@@ -68,6 +69,18 @@ instance, it will catch the user of **../** which is not
 allowed in .ignore files.
 
 ![Validation](art/validation.png)
+
+### Light Bulbs
+Light bulbs appear in the margin to give you quick access
+to perform helpful actions.
+
+For matches:
+
+![Light bulb matches](art/lightbulb-match.png)
+
+For non-matches:
+
+![Light bulb non-matches](art/lightbulb-non-match.png)
 
 ## Settings
 Various settings are available in the **Tools -> Options**
