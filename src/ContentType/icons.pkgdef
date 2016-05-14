@@ -41,3 +41,7 @@
 // Cloud foundry
 [$RootKey$\ShellFileAssociations\.cfignore]
 "DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// Babel
+[$RootKey$\ShellFileAssociations\.babelignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
