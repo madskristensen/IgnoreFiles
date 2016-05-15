@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Input;
 using System.Windows.Media;
 using EnvDTE;
@@ -48,14 +49,20 @@ namespace IgnoreFiles.Models
             {
                 for (int i = 1; i < IgnorePackage.DTE.Windows.Count; ++i)
                 {
-                    Window window = IgnorePackage.DTE.Windows.Item(i);
-                    Document d = window.Document;
-
-                    if (string.Equals(d?.Path + d?.Name, FullPath, StringComparison.OrdinalIgnoreCase))
+                    try
                     {
-                        window.Activate();
-                        window.Visible = true;
-                        return;
+                        Window window = IgnorePackage.DTE.Windows.Item(i);
+                        Document d = window.Document;
+
+                        if (string.Equals(d?.Path + d?.Name, FullPath, StringComparison.OrdinalIgnoreCase))
+                        {
+                            window.Activate();
+                            window.Visible = true;
+                            return;
+                        }
+                    }
+                    catch
+                    {
                     }
                 }
 
@@ -64,6 +71,7 @@ namespace IgnoreFiles.Models
                 {
                     win.Activate();
                     win.Visible = true;
+
                 }
             }
             catch

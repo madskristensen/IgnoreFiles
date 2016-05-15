@@ -20,7 +20,6 @@
         <converters:IconConverter x:Key="IconConverter" />
         <converters:ItemVisibilityConverter x:Key="ItemVisibilityConverter" />
         <converters:ItemOpacityConverter x:Key="ItemOpacityConverter" />
-        <converters:PathMatchConverter x:Key="PathMatchConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -48,21 +47,19 @@
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>
-                    <Setter Property="Opacity">
-                        <Setter.Value>
-                            <MultiBinding Converter="{StaticResource ItemOpacityConverter}" ConverterParameter=".6">
-                                <Binding Path="." Mode="OneWay" />
-                                <Binding ElementName="ThisControl" Path="ViewModel.ShowAllFiles" />
-                                <Binding ElementName="ThisControl" Path="ViewModel.MatchesFilter" />
-                            </MultiBinding>
-                        </Setter.Value>
-                    </Setter>
                     <EventSetter Event="MouseDoubleClick" Handler="ItemDoubleClicked" />
                 </Style>
             </TreeView.ItemContainerStyle>
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Children, Mode=OneWay}">
                     <Grid>
+                        <Grid.Opacity>
+                            <MultiBinding Converter="{StaticResource ItemOpacityConverter}" ConverterParameter=".6">
+                                <Binding Path="." Mode="OneWay" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.ShowAllFiles" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.MatchesFilter" />
+                            </MultiBinding>
+                        </Grid.Opacity>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />

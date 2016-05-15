@@ -11,6 +11,11 @@ namespace IgnoreFiles.Models
         private List<FileTreeModel> _children = new List<FileTreeModel>();
         private readonly Dictionary<string, FileTreeModel> _lookup = new Dictionary<string, FileTreeModel>();
 
+        public static IReadOnlyList<string> DirectoryIgnoreList { get; } = new List<string>
+        {
+            ".git"
+        };
+
         public FileTree(string rootDirectory)
         {
             _rootDir = rootDirectory;
@@ -26,7 +31,21 @@ namespace IgnoreFiles.Models
 
             foreach (string file in Directory.EnumerateFiles(rootDirectory, "*", SearchOption.AllDirectories))
             {
-                root.GetModelFor(file, true);
+                string[] parts = file.Split('/', '\\');
+                bool skip = false;
+
+                for (int i = 1; !skip && i < parts.Length - 1; ++i)
+                {
+                    if (DirectoryIgnoreList.Contains(parts[i], StringComparer.OrdinalIgnoreCase))
+                    {
+                        skip = true;
+                    }
+                }
+
+                if (!skip)
+                {
+                    root.GetModelFor(file, true);
+                }
             }
 
             root.SortChildren();
