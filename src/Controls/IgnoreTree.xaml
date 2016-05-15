@@ -35,7 +35,7 @@
             <!-- File count -->
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <TreeView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Path=TreeRoot.Children, Mode=OneWay}" Margin="0 0 0 5">
+        <TreeView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Path=TreeRoot.Children, Mode=OneWay}" Margin="0 0 0 5" SelectedItemChanged="SelectedItemChanged">
             <TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem"> <!--d:DataContext="{d:DesignInstance Type=models:FileTreeModel, IsDesignTimeCreatable=False}">-->
                     <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded}" />
@@ -57,6 +57,7 @@
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>
+                    <EventSetter Event="MouseDoubleClick" Handler="ItemDoubleClicked" />
                 </Style>
             </TreeView.ItemContainerStyle>
             <TreeView.ItemTemplate>
