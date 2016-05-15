@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using IgnoreFiles.Controls;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
@@ -12,6 +13,7 @@ namespace IgnoreFiles
     {
         private IClassifier _classifier;
         private string _root;
+        private IEventsFilter _eventsFilter;
         private const int _maxFiles = 20;
 
         public IgnoreQuickInfo(ITextBuffer buffer, IClassifierAggregatorService classifier, ITextDocument document)
@@ -22,6 +24,9 @@ namespace IgnoreFiles
 
         public void AugmentQuickInfoSession(IQuickInfoSession session, IList<object> qiContent, out ITrackingSpan applicableToSpan)
         {
+            _eventsFilter?.Remove();
+            _eventsFilter = Helpers.DemandEventsFilterForCurrentNativeTextView();
+            session.Dismissed += RemoveFilter;
             applicableToSpan = null;
 
             var buffer = session.TextView.TextBuffer;
@@ -59,19 +64,33 @@ namespace IgnoreFiles
                     if (!IgnorePackage.Options.ShowTooltip)
                         continue;
 
+
                     string pattern = tag.Span.GetText().Trim();
-                    var files = GetFiles(_root, pattern);
+                    IgnoreTree tree = new IgnoreTree(_root, pattern);
 
+                    //Resizing in quick info causes the position to change relative to the mouse's position relative to
+                    //  the original launch point. Fix the size of the control when launching from QI
+                    tree.Width = tree.MaxWidth;
+                    tree.Height = (tree.MaxHeight + tree.MinHeight)/2;
+                    qiContent.Add(tree);
                     applicableToSpan = buffer.CurrentSnapshot.CreateTrackingSpan(tag.Span.Span, SpanTrackingMode.EdgeNegative);
-                    qiContent.Add(string.Join(Environment.NewLine, files.Take(_maxFiles)));
 
-                    if (files.Count() > _maxFiles)
-                    {
-                        qiContent.Add($"...and {files.Count() - _maxFiles} more");
-                    }
+                    //var files = GetFiles(_root, pattern);
+                    //qiContent.Add(string.Join(Environment.NewLine, files.Take(_maxFiles)));
+
+                    //if (files.Count() > _maxFiles)
+                    //{
+                    //    qiContent.Add($"...and {files.Count() - _maxFiles} more");
+                    //}
                     break;
                 }
             }
+        }
+
+        private void RemoveFilter(object sender, EventArgs e)
+        {
+            _eventsFilter.Remove();
+            _eventsFilter = null;
         }
 
         public static IEnumerable<string> GetFiles(string folder, string pattern, string root = null)
