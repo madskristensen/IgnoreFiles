@@ -40,12 +40,12 @@ Correct file icons will be shown for all the .ignore files.
 Hovering over any path entry will give details about what
 files the path points to.
 
-![Tooltip Short](art/tooltip-short.png)
+![Tooltip Short](art/tooltip.png)
 
-The tooltip shows the first 20 files found, but will show
-how many more files are matching the path.
+To search the results directly in the tooltip, simply place
+the cursor in the bottom search field and start typing.
 
-![Tooltip Long](art/tooltip-long.png)
+![Tooltip Search](art/tooltip-search.png)
 
 ### Non-matches
 If a file path doesn't point to a file or folder, then it

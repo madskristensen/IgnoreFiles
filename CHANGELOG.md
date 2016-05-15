@@ -6,7 +6,7 @@
   - [x] Remove non-matching entry in document
   - [x] Delete files that match
   - [x] Remove matching files from project
-- [ ] Full treeview in tooltip
+- [x] Full treeview in tooltip
 - [ ] Make files in tooltip clickable (selects file, opens file)
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
