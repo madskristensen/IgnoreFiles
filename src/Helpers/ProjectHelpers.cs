@@ -1,6 +1,7 @@
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.ComponentModelHost;
 using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
@@ -34,6 +35,15 @@ namespace IgnoreFiles
             return activeView;
         }
 
+        public static IEventsFilter DemandEventsFilterForCurrentNativeTextView()
+        {
+            IVsTextView view = GetCurrentNativeTextView();
+            EventsFilter filter = new EventsFilter(view);
+            IOleCommandTarget nextTarget;
+            view.AddCommandFilter(filter, out nextTarget);
+            return filter;
+        }
+
         private static IComponentModel GetComponentModel()
         {
             return (IComponentModel)Package.GetGlobalService(typeof(SComponentModel));
@@ -43,7 +53,14 @@ namespace IgnoreFiles
 
         public static bool CheckGlobbing(string path, string pattern)
         {
-            return Minimatcher.Check(path, pattern.TrimEnd('/'), _options);
+            string p = pattern?.TrimEnd('/');
+
+            if (!string.IsNullOrWhiteSpace(p))
+            {
+                return Minimatcher.Check(path, p, _options);
+            }
+
+            return false;
         }
     }
 }

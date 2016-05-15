@@ -9,7 +9,7 @@ using IgnoreFiles;
 [assembly: AssemblyProduct(Vsix.Name)]
 [assembly: AssemblyCopyright(Vsix.Author)]
 [assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture(Vsix.Language)]
+[assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 

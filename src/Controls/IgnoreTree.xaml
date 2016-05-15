@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="IgnoreFiles.Controls.IgnoreTree"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:IgnoreFiles.Converters"
+             xmlns:models="clr-namespace:IgnoreFiles.Models"
+             xmlns:controls="clr-namespace:IgnoreFiles.Controls"
+             xmlns:platformUi="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.14.0"
+             mc:Ignorable="d" x:Name="ThisControl"
+             MinWidth="200" MaxWidth="350"
+             MinHeight="200" MaxHeight="350"
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance d:Type=models:IgnoreTreeModel, d:IsDesignTimeCreatable=False}">
+    <UserControl.Resources>
+        <Style x:Key="HighlightStyle" TargetType="Run">
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.SystemHighlightTextBrushKey}}" />
+            <Setter Property="Background" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.SystemHighlightBrushKey}}" />
+        </Style>
+        <converters:IconConverter x:Key="IconConverter" />
+        <converters:ItemVisibilityConverter x:Key="ItemVisibilityConverter" />
+        <converters:ItemOpacityConverter x:Key="ItemOpacityConverter" />
+        <converters:PathMatchConverter x:Key="PathMatchConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <!-- Search Box -->
+            <ColumnDefinition />
+            <!-- Show all files -->
+            <ColumnDefinition Width="Auto" />
+            <!-- File count -->
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <TreeView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Path=TreeRoot.Children, Mode=OneWay}" Margin="0 0 0 5">
+            <TreeView.ItemContainerStyle>
+                <Style TargetType="TreeViewItem"> <!--d:DataContext="{d:DesignInstance Type=models:FileTreeModel, IsDesignTimeCreatable=False}">-->
+                    <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded}" />
+                    <Setter Property="Visibility">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource ItemVisibilityConverter}" Mode="OneWay">
+                                <Binding Path="." Mode="OneWay" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.MatchesFilter" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.ShowAllFiles" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Opacity">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource ItemOpacityConverter}" ConverterParameter=".6">
+                                <Binding Path="." Mode="OneWay" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.ShowAllFiles" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.MatchesFilter" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TreeView.ItemContainerStyle>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Children, Mode=OneWay}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Margin="1 0" Width="16" Height="16" VerticalAlignment="Center">
+                            <Image.Source>
+                                <MultiBinding Converter="{StaticResource IconConverter}" Mode="OneWay">
+                                    <Binding Path="." />
+                                    <Binding RelativeSource="{RelativeSource Self}" Path="ActualWidth" />
+                                    <Binding RelativeSource="{RelativeSource Self}" Path="ActualHeight" />
+                                    <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=TreeView}" />
+                                </MultiBinding>
+                            </Image.Source>
+                        </Image>
+                        <Label Grid.Column="1" Margin="2 0 0 0" Padding="0" VerticalAlignment="Center" Content="{Binding Name}" 
+                               controls:SearchHighlight.HighlightText="{Binding ElementName=ThisControl, Path=ViewModel.SearchText,Mode=OneWay}"
+                               controls:SearchHighlight.HighlightStyle="{StaticResource HighlightStyle}"
+                               controls:SearchHighlight.SourceText="{Binding Path=Name, Mode=OneWay}"/>
+                    </Grid>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+        <TextBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" Text="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="0 0 24 0" />
+        <Image Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Source="{Binding Path=SearchIcon, Mode=OneTime}" Width="16" Height="16" Margin="0 0 4 0" />
+        <ToggleButton Grid.Row="1" Grid.Column="1" IsChecked="{Binding Path=ShowAllFiles, Mode=TwoWay}">
+            <Image Source="{Binding Path=ShowAllFilesIcon, Mode=OneTime}" IsHitTestVisible="False" />
+        </ToggleButton>
+        <Label Grid.Row="1" Grid.Column="2" Content="{Binding Path=FileCount, Mode=OneWay}" ContentStringFormat="{}{0:N0} matched files" />
+    </Grid>
+</UserControl>
