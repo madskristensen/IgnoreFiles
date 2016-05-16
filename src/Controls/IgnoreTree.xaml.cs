@@ -24,6 +24,9 @@ namespace IgnoreFiles.Controls
         {
             _closeAction = closeAction;
             ViewModel = new IgnoreTreeModel(directory, pattern);
+            CloseCommand = ActionCommand.Create(_closeAction);
+            ToggleShowAllFilesCommand = ActionCommand.Create(() => ViewModel.ShowAllFiles = !ViewModel.ShowAllFiles);
+            ToggleSyncCommand = ActionCommand.Create(() => ViewModel.SyncToSolutionExplorer = !ViewModel.SyncToSolutionExplorer);
         }
 
         public IgnoreTreeModel ViewModel
@@ -38,6 +41,11 @@ namespace IgnoreFiles.Controls
 
         private void SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            if (!ViewModel.SyncToSolutionExplorer)
+            {
+                return;
+            }
+
             FileTreeModel selected = e.NewValue as FileTreeModel;
 
             if (selected != null)
@@ -47,6 +55,11 @@ namespace IgnoreFiles.Controls
 
                 Stack<Tuple<UIHierarchyItems, int, bool>> parents = new Stack<Tuple<UIHierarchyItems, int, bool>>();
                 ProjectItem targetItem = IgnorePackage.DTE.Solution.FindProjectItem(selected.FullPath);
+
+                if (targetItem == null)
+                {
+                    return;
+                }
 
                 UIHierarchyItems collection = rootNode.UIHierarchyItems;
                 int cursor = 1;
@@ -79,11 +92,12 @@ namespace IgnoreFiles.Controls
 
                     ++cursor;
 
+                    bool oldOldExpand = oldExpand;
                     oldExpand = result.UIHierarchyItems.Expanded;
                     result.UIHierarchyItems.Expanded = true;
                     if (result.UIHierarchyItems.Count > 0)
                     {
-                        parents.Push(Tuple.Create(collection, cursor, oldExpand));
+                        parents.Push(Tuple.Create(collection, cursor, oldOldExpand));
                         collection = result.UIHierarchyItems;
                         cursor = 1;
                     }
@@ -99,12 +113,24 @@ namespace IgnoreFiles.Controls
             _closeAction?.Invoke();
         }
 
-        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        protected override void OnKeyDown(KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
             {
                 _closeAction?.Invoke();
+                e.Handled = true;
             }
+        }
+
+        public ICommand CloseCommand { get; }
+
+        public ICommand ToggleShowAllFilesCommand { get; }
+
+        public ICommand ToggleSyncCommand { get; }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            OnKeyDown(e);
         }
     }
 }

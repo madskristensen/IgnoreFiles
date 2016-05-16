@@ -3,6 +3,8 @@ using System.Linq;
 using System.Windows.Media;
 using Microsoft.VisualStudio.Imaging;
 using System.Collections.Generic;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace IgnoreFiles.Models
 {
@@ -15,6 +17,7 @@ namespace IgnoreFiles.Models
         private HashSet<FileTreeModel> _filterMatches;
         private string _lastSearchText;
         private bool _lastShowAllFiles;
+        private bool _syncToSolutionExplorer;
 
         public IgnoreTreeModel(string rootDirectory, string pattern)
         {
@@ -27,7 +30,11 @@ namespace IgnoreFiles.Models
             FileCount = TreeRoot.AllFiles.Count(x => x.IsFile && ShouldBeVisible(x));
             SearchIcon = WpfUtil.GetIconForImageMoniker(KnownMonikers.Search, 16, 16);
             ShowAllFilesIcon = WpfUtil.GetIconForImageMoniker(KnownMonikers.ShowAllFiles, 16, 16);
+            SyncToSolutionExplorerIcon = WpfUtil.GetIconForImageMoniker(KnownMonikers.Sync, 16, 16);
+            _syncToSolutionExplorer = true;
         }
+
+        public ImageSource SyncToSolutionExplorerIcon { get; }
 
         private bool CheckVisibility(FileTreeModel arg)
         {
@@ -181,5 +188,11 @@ namespace IgnoreFiles.Models
         public ImageSource ShowAllFilesIcon { get; }
 
         public Func<FileTreeModel, bool> IsSearchMatch { get; }
+
+        public bool SyncToSolutionExplorer
+        {
+            get { return _syncToSolutionExplorer; }
+            set { Set(ref _syncToSolutionExplorer, value); }
+        }
     }
 }

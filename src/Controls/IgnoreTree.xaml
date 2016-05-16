@@ -11,12 +11,11 @@
              MinWidth="200" MaxWidth="350"
              MinHeight="200" MaxHeight="350"
              d:DesignHeight="300" d:DesignWidth="300"
+             Focusable="True"
              d:DataContext="{d:DesignInstance d:Type=models:IgnoreTreeModel, d:IsDesignTimeCreatable=False}">
-    <UserControl.Style>
-        <Style TargetType="UserControl">
-            <EventSetter Event="PreviewKeyDown" Handler="OnPreviewKeyDown" HandledEventsToo="True" />
-        </Style>
-    </UserControl.Style>
+    <UserControl.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding Path=CloseCommand, Mode=OneTime}" CommandTarget="{Binding ElementName=ThisControl}" />
+    </UserControl.InputBindings>
     <UserControl.Resources>
         <Style x:Key="HighlightStyle" TargetType="Run">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.SystemHighlightTextBrushKey}}" />
@@ -36,10 +35,12 @@
             <ColumnDefinition />
             <!-- Show all files -->
             <ColumnDefinition Width="Auto" />
+            <!-- Sync with Solution Explorer -->
+            <ColumnDefinition Width="Auto" />
             <!-- File count -->
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <TreeView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding Path=TreeRoot.Children, Mode=OneWay}" Margin="0 0 0 5" SelectedItemChanged="SelectedItemChanged"
+        <TreeView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" ItemsSource="{Binding Path=TreeRoot.Children, Mode=OneWay}" Margin="0 0 0 5" SelectedItemChanged="SelectedItemChanged" KeyDown="OnKeyDown"
                   VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
             <TreeView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -97,11 +98,14 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
-        <TextBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" Text="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="0 0 24 0" />
+        <TextBox Grid.Row="1" Grid.Column="0" VerticalContentAlignment="Center" Text="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="0 0 24 0" KeyDown="OnKeyDown" />
         <Image Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Source="{Binding Path=SearchIcon, Mode=OneTime}" Width="16" Height="16" Margin="0 0 4 0" />
-        <ToggleButton Grid.Row="1" Grid.Column="1" ToolTip="Show All Files" IsChecked="{Binding Path=ShowAllFiles, Mode=TwoWay}">
+        <ToggleButton Grid.Row="1" Grid.Column="1" ToolTip="Show All Files" IsChecked="{Binding Path=ShowAllFiles, Mode=TwoWay}" KeyDown="OnKeyDown">
             <Image Source="{Binding Path=ShowAllFilesIcon, Mode=OneTime}" IsHitTestVisible="False" />
         </ToggleButton>
-        <Label Grid.Row="1" Grid.Column="2" Content="{Binding Path=FileCount, Mode=OneWay}" ContentStringFormat="{}{0:N0} matched files" />
+        <ToggleButton Grid.Row="1" Grid.Column="2" ToolTip="Sync with Selected Document" IsChecked="{Binding Path=SyncToSolutionExplorer, Mode=TwoWay}" KeyDown="OnKeyDown">
+            <Image Source="{Binding Path=SyncToSolutionExplorerIcon, Mode=OneTime}" IsHitTestVisible="False" />
+        </ToggleButton>
+        <Label Grid.Row="1" Grid.Column="3" Content="{Binding Path=FileCount, Mode=OneWay}" ContentStringFormat="{}{0:N0} matched files" />
     </Grid>
 </UserControl>
