@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows.Input;
 using System.Windows.Media;
-using EnvDTE;
 
 namespace IgnoreFiles.Models
 {
@@ -40,42 +38,9 @@ namespace IgnoreFiles.Models
 
         public void ItemDoubleClicked(object sender, MouseButtonEventArgs e)
         {
-            if (!IsFile)
+            if (IsFile)
             {
-                return;
-            }
-
-            try
-            {
-                for (int i = 1; i < IgnorePackage.DTE.Windows.Count; ++i)
-                {
-                    try
-                    {
-                        Window window = IgnorePackage.DTE.Windows.Item(i);
-                        Document d = window.Document;
-
-                        if (string.Equals(d?.Path + d?.Name, FullPath, StringComparison.OrdinalIgnoreCase))
-                        {
-                            window.Activate();
-                            window.Visible = true;
-                            return;
-                        }
-                    }
-                    catch
-                    {
-                    }
-                }
-
-                Window win = IgnorePackage.DTE.OpenFile(null, FullPath);
-                if (win != null)
-                {
-                    win.Activate();
-                    win.Visible = true;
-
-                }
-            }
-            catch
-            {
+                IgnorePackage.DTE.ItemOperations.OpenFile(FullPath);
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -15,15 +15,15 @@ namespace IgnoreFiles
     public sealed class IgnorePackage : Package
     {
         private static Options _options;
-        private static DTE _dte;
+        private static DTE2 _dte;
 
-        public static DTE DTE
+        public static DTE2 DTE
         {
             get
             {
                 if (_dte == null)
                 {
-                    _dte = ServiceProvider.GlobalProvider.GetService(typeof(SDTE)) as DTE;
+                    _dte = (DTE2)ServiceProvider.GlobalProvider.GetService(typeof(SDTE));
                 }
 
                 return _dte;
