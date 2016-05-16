@@ -27,9 +27,9 @@
 
     <Style x:Key="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}" TargetType="{x:Type ToggleButton}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Background" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonBrushKey}}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonBrushKey}}"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonTextBrushKey}}"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.ToolTipBrushKey}}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.ToolTipBrushKey}}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.CommandBarOptionsGlyphBrushKey}}" />
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -45,24 +45,15 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="true">
-                <Setter Property="Background" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonDefaultBrushKey}}"/>
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonDefaultTextBrushKey}}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonBorderPressedBrushKey}}"/>
+                <Setter Property="Background" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.CommandBarSelectedBrushKey}}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.CommandBarSelectedBorderBrushKey}}"/>
             </Trigger>
             <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property="Background" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonHoverBrushKey}}"/>
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonHoverTextBrushKey}}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonBorderHoverBrushKey}}"/>
+                <Setter Property="Background" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.CommandBarHoverBrushKey}}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="true">
-                <Setter Property="Background" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonPressedBrushKey}}"/>
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonPressedTextBrushKey}}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonBorderPressedBrushKey}}"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="false">
-                <Setter Property="Background" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonDisabledBrushKey}}"/>
-                <Setter Property="Foreground" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonDisabledTextBrushKey}}"/>
-                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static platformUi:CommonControlsColors.ButtonBorderDisabledBrushKey}}"/>
+                <Setter Property="Background" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.CommandBarMouseDownBackgroundMiddleBrushKey}}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.CommandBarMouseDownBorderBrushKey}}"/>
             </Trigger>
         </Style.Triggers>
     </Style>
