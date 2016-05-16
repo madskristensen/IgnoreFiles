@@ -9,6 +9,7 @@
 - [x] Full treeview in tooltip
 - [x] Add support for .babelignore and .svnignore
 - [x] Make files in tooltip clickable (selects file, opens file)
+- [ ] Button to toggle the Solution Explorer selection sync
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
 - [ ] Glyph in margin to indicate folders
