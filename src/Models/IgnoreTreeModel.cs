@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Media;
 using Microsoft.VisualStudio.Imaging;
+using System.Collections.Generic;
 
 namespace IgnoreFiles.Models
 {
@@ -9,44 +10,157 @@ namespace IgnoreFiles.Models
     {
         private bool _showAllFiles;
         private string _searchText;
-        private string _pattern;
+        private readonly string _pattern;
+        private HashSet<FileTreeModel> _visibleNodes;
+        private HashSet<FileTreeModel> _filterMatches;
+        private string _lastSearchText;
+        private bool _lastShowAllFiles;
 
         public IgnoreTreeModel(string rootDirectory, string pattern)
         {
             _pattern = pattern;
             TreeRoot = FileTree.ForDirectory(rootDirectory);
-            MatchesFilter = CheckMatch;
-            IsSearchMatch = f => !string.IsNullOrWhiteSpace(SearchText) && f.FullPath.IndexOf(SearchText, StringComparison.OrdinalIgnoreCase) > -1;
+            ShouldBeVisible = CheckVisibility;
+            IsSearchMatch = f => true;
 
-            FileCount = TreeRoot.AllFiles.Count(x => x.IsFile && MatchesFilter(x));
+            NodeFilter = FilterNodes;
+            FileCount = TreeRoot.AllFiles.Count(x => x.IsFile && ShouldBeVisible(x));
             SearchIcon = WpfUtil.GetIconForImageMoniker(KnownMonikers.Search, 16, 16);
             ShowAllFilesIcon = WpfUtil.GetIconForImageMoniker(KnownMonikers.ShowAllFiles, 16, 16);
         }
 
-        private bool CheckMatch(FileTreeModel f)
+        private bool CheckVisibility(FileTreeModel arg)
         {
-            if (Helpers.CheckGlobbing(f.FullPath, _pattern) || f.Children.Any(MatchesFilter))
+            EnsureFilterRun();
+            return _visibleNodes.Contains(arg);
+        }
+
+        private bool FilterNodes(FileTreeModel arg)
+        {
+            EnsureFilterRun();
+            return _filterMatches.Contains(arg);
+        }
+
+        private void EnsureFilterRun()
+        {
+            if (string.Equals(_lastSearchText, _searchText) && _lastShowAllFiles == _showAllFiles && _visibleNodes != null)
             {
-                return true;
+                return;
             }
 
-            FileTreeModel parent = f.Parent;
-            while (parent != null)
+            string searchText = _searchText;
+            bool showAllFiles = _showAllFiles;
+            HashSet<FileTreeModel> visibleNodes = new HashSet<FileTreeModel>();
+            HashSet<FileTreeModel> filterMatches = new HashSet<FileTreeModel>();
+            HashSet<FileTreeModel> directGlobMatches = new HashSet<FileTreeModel>();
+
+            foreach (FileTreeModel model in TreeRoot.AllFiles)
             {
-                if (Helpers.CheckGlobbing(parent.FullPath, _pattern))
+                if (visibleNodes.Contains(model))
                 {
-                    return true;
+                    continue;
                 }
 
-                parent = parent.Parent;
+                bool globMatch = Helpers.CheckGlobbing(model.FullPath, _pattern);
+
+                if (globMatch)
+                {
+                    directGlobMatches.Add(model);
+                    filterMatches.Add(model);
+                    FileTreeModel parent = model.Parent;
+
+                    while (parent != null)
+                    {
+                        //If something else has already added our parent, it's already added the whole parent tree, bail.
+                        if (!filterMatches.Add(parent))
+                        {
+                            break;
+                        }
+
+                        parent = parent.Parent;
+                    }
+                }
+                else
+                {
+                    FileTreeModel parent = model.Parent;
+                    while (parent != null)
+                    {
+                        //If we're included by a direct glob match (even though this model isn't one itself)...
+                        if (directGlobMatches.Contains(parent))
+                        {
+                            filterMatches.Add(model);
+                            globMatch = true;
+                            parent = model.Parent;
+
+                            while (parent != null)
+                            {
+                                //If something else has already added our parent, it's already added the whole parent tree, bail.
+                                if (!filterMatches.Add(parent))
+                                {
+                                    break;
+                                }
+
+                                parent = parent.Parent;
+                            }
+
+                            break;
+                        }
+
+                        parent = parent.Parent;
+                    }
+                }
+
+
+                bool isVisible = showAllFiles || globMatch;
+                bool explicitMatch = globMatch;
+
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    bool searchMatch = model.Name.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) > -1;
+                    explicitMatch |= searchMatch;
+                    isVisible &= searchMatch;
+                }
+
+                model.IsExpanded = globMatch;
+
+                if (isVisible)
+                {
+                    visibleNodes.Add(model);
+
+                    FileTreeModel parent = model.Parent;
+
+                    while(parent != null)
+                    {
+                        //If something else has already added our parent, it's already added the whole parent tree, bail.
+                        if(!visibleNodes.Add(parent) && (!explicitMatch || parent.IsExpanded))
+                        {
+                            break;
+                        }
+
+                        if (explicitMatch)
+                        {
+                            parent.IsExpanded = true;
+                        }
+
+                        parent = parent.Parent;
+                    }
+                }
             }
 
-            return false;
+            if (string.Equals(searchText, _searchText) && showAllFiles == _showAllFiles)
+            {
+                _filterMatches = filterMatches;
+                _visibleNodes = visibleNodes;
+                _lastShowAllFiles = showAllFiles;
+                _lastSearchText = searchText;
+            }
         }
+
+        public Func<FileTreeModel, bool> NodeFilter { get; }
 
         public FileTree TreeRoot { get; }
 
-        public Func<FileTreeModel, bool> MatchesFilter { get; }
+        public Func<FileTreeModel, bool> ShouldBeVisible { get; }
 
         public bool ShowAllFiles
         {

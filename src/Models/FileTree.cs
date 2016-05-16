@@ -29,12 +29,14 @@ namespace IgnoreFiles.Models
         {
             FileTree root = new FileTree(rootDirectory);
 
-            foreach (string file in Directory.EnumerateFiles(rootDirectory, "*", SearchOption.AllDirectories))
+            foreach (string file in Directory.EnumerateFileSystemEntries(rootDirectory, "*", SearchOption.AllDirectories))
             {
                 string[] parts = file.Split('/', '\\');
                 bool skip = false;
+                bool isFile = File.Exists(file);
+                int fileNameParts = isFile ? 1 : 0;
 
-                for (int i = 1; !skip && i < parts.Length - 1; ++i)
+                for (int i = 1; !skip && i < parts.Length - fileNameParts; ++i)
                 {
                     if (DirectoryIgnoreList.Contains(parts[i], StringComparer.OrdinalIgnoreCase))
                     {
@@ -44,7 +46,7 @@ namespace IgnoreFiles.Models
 
                 if (!skip)
                 {
-                    root.GetModelFor(file, true);
+                    root.GetModelFor(file, isFile);
                 }
             }
 

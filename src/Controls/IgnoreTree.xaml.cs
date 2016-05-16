@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,22 +11,25 @@ namespace IgnoreFiles.Controls
 {
     public partial class IgnoreTree : IInteractiveQuickInfoContent
     {
+        private readonly Action _closeAction;
+
         public IgnoreTree()
         {
             InitializeComponent();
             this.ShouldBeThemed();
         }
 
-        public IgnoreTree(string directory, string pattern)
+        public IgnoreTree(string directory, string pattern, Action closeAction)
             : this()
         {
+            _closeAction = closeAction;
             ViewModel = new IgnoreTreeModel(directory, pattern);
         }
 
         public IgnoreTreeModel ViewModel
         {
-            get { return DataContext as IgnoreTreeModel; }
-            set { DataContext = value; }
+            get { return Dispatcher.Invoke(() => DataContext as IgnoreTreeModel); }
+            set { Dispatcher.Invoke(() => DataContext = value); }
         }
 
         public bool KeepQuickInfoOpen => IsMouseOverAggregated || IsKeyboardFocusWithin || IsKeyboardFocused || IsFocused;
@@ -94,6 +96,15 @@ namespace IgnoreFiles.Controls
             TreeViewItem item = sender as TreeViewItem;
             FileTreeModel model = item?.DataContext as FileTreeModel;
             model?.ItemDoubleClicked(sender, e);
+            _closeAction?.Invoke();
+        }
+
+        private void OnPreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                _closeAction?.Invoke();
+            }
         }
     }
 }
