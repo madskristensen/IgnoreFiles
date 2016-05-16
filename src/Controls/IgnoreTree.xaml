@@ -12,6 +12,11 @@
              MinHeight="200" MaxHeight="350"
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance d:Type=models:IgnoreTreeModel, d:IsDesignTimeCreatable=False}">
+    <UserControl.Style>
+        <Style TargetType="UserControl">
+            <EventSetter Event="PreviewKeyDown" Handler="OnPreviewKeyDown" HandledEventsToo="True" />
+        </Style>
+    </UserControl.Style>
     <UserControl.Resources>
         <Style x:Key="HighlightStyle" TargetType="Run">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static platformUi:EnvironmentColors.SystemHighlightTextBrushKey}}" />
@@ -42,14 +47,16 @@
                 </ItemsPanelTemplate>
             </TreeView.ItemsPanel>
             <TreeView.ItemContainerStyle>
-                <Style TargetType="TreeViewItem"> <!--d:DataContext="{d:DesignInstance Type=models:FileTreeModel, IsDesignTimeCreatable=False}">-->
+                <Style TargetType="TreeViewItem">
+                    <!--d:DataContext="{d:DesignInstance Type=models:FileTreeModel, IsDesignTimeCreatable=False}">-->
                     <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded}" />
                     <Setter Property="Visibility">
                         <Setter.Value>
                             <MultiBinding Converter="{StaticResource ItemVisibilityConverter}" Mode="OneWay">
                                 <Binding Path="." Mode="OneWay" />
-                                <Binding ElementName="ThisControl" Path="ViewModel.MatchesFilter" />
-                                <Binding ElementName="ThisControl" Path="ViewModel.ShowAllFiles" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.ShouldBeVisible" Mode="OneWay" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.SearchText" Mode="OneWay" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.ShowAllFiles" Mode="OneWay" />
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>
@@ -62,8 +69,10 @@
                         <Grid.Opacity>
                             <MultiBinding Converter="{StaticResource ItemOpacityConverter}" ConverterParameter=".6">
                                 <Binding Path="." Mode="OneWay" />
-                                <Binding ElementName="ThisControl" Path="ViewModel.ShowAllFiles" />
-                                <Binding ElementName="ThisControl" Path="ViewModel.MatchesFilter" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.ShouldBeVisible" Mode="OneWay" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.NodeFilter" Mode="OneWay" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.SearchText" Mode="OneWay" />
+                                <Binding ElementName="ThisControl" Path="ViewModel.ShowAllFiles" Mode="OneWay" />
                             </MultiBinding>
                         </Grid.Opacity>
                         <Grid.ColumnDefinitions>
@@ -80,7 +89,7 @@
                                 </MultiBinding>
                             </Image.Source>
                         </Image>
-                        <Label Grid.Column="1" Margin="2 0 0 0" Padding="0" VerticalAlignment="Center" Content="{Binding Name}"
+                        <Label Grid.Column="1" Margin="2 0 0 0" Padding="0" VerticalAlignment="Center" Content="{Binding Name, Mode=OneWay}"
                                controls:SearchHighlight.HighlightText="{Binding ElementName=ThisControl, Path=ViewModel.SearchText,Mode=OneWay}"
                                controls:SearchHighlight.HighlightStyle="{StaticResource HighlightStyle}"
                                controls:SearchHighlight.SourceText="{Binding Path=Name, Mode=OneWay}"/>

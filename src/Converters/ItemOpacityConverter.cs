@@ -25,6 +25,10 @@ namespace IgnoreFiles.Converters
                 {
                     result &= !(bool) values[i];
                 }
+                else
+                {
+                    break;
+                }
             }
 
             return result ? System.Convert.ToDouble(parameter) : 1;

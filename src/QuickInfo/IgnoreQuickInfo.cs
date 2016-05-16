@@ -62,11 +62,21 @@ namespace IgnoreFiles
                 else if (tag.ClassificationType.IsOfType(IgnoreClassificationTypes.Path))
                 {
                     if (!IgnorePackage.Options.ShowTooltip)
+                    {
                         continue;
-
+                    }
 
                     string pattern = tag.Span.GetText().Trim();
-                    IgnoreTree tree = new IgnoreTree(_root, pattern);
+                    IgnoreTree tree = new IgnoreTree(_root, pattern, () =>
+                    {
+                        try
+                        {
+                            session.Dismiss();
+                        }
+                        catch
+                        {
+                        }
+                    });
 
                     //Resizing in quick info causes the position to change relative to the mouse's position relative to
                     //  the original launch point. Fix the size of the control when launching from QI

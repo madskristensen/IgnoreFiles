@@ -24,7 +24,11 @@ namespace IgnoreFiles.Converters
                 }
                 else if (values[i] is bool)
                 {
-                    result |= (bool)values[i];
+                    result |= (bool) values[i];
+                }
+                else
+                {
+                    break;
                 }
             }
 
