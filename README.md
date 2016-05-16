@@ -11,7 +11,7 @@ This extension supports *.gitignore (Git), .tfignore (Team Foundation),
 .hgignore (Mercurial), .npmignore (npm), .dockerignore (Docker),
 .chefignore (Chef), .cvsignore (CVS), .bzrignore (Bazaar),
 .jshintignore (JSHint), .eslintignore (ESLint), .cfignore (Cloud Foundry),
-.babelignore (Babel)*
+.babelignore (Babel), .svnignore (SVN)*
 
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 

@@ -45,3 +45,7 @@
 // Babel
 [$RootKey$\ShellFileAssociations\.babelignore]
 "DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+
+// SVN
+[$RootKey$\ShellFileAssociations\.svnignore]
+"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"

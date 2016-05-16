@@ -69,7 +69,7 @@ namespace IgnoreFiles
 
         [Export(typeof(FileExtensionToContentTypeDefinition))]
         [ContentType(IgnoreContentType)]
-        [FileExtension(".babelignore")]
-        public FileExtensionToContentTypeDefinition BabelFileExtension { get; set; }
+        [FileExtension(".svnignore")]
+        public FileExtensionToContentTypeDefinition SvnFileExtension { get; set; }
     }
 }
