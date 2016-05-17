@@ -36,16 +36,31 @@ Correct file icons will be shown for all the .ignore files.
 
 ![Icons](art/icons.png)
 
-### Tooltips
+### Tooltip
 Hovering over any path entry will give details about what
 files the path points to.
 
 ![Tooltip Short](art/tooltip.png)
 
-To search the results directly in the tooltip, simply place
+To filter the results directly in the tooltip, simply place
 the cursor in the bottom search field and start typing.
 
 ![Tooltip Search](art/tooltip-search.png)
+
+To synchronize the selected file in the tooltip with the
+selected file in Solution Explorer, enable the 
+*Suync with Selected Document* button:
+
+![Button Sync](art/button-sync.png)
+
+Sometimes it can be helpful to see the matched files in context
+of all the non-matched files. You can do that by toggling the
+*Show All Files* button:
+
+![Tooltip All Files](art/tooltip-all-files.png)
+
+Double-clicking any file in the tooltip will open it up
+in Visual Studio.
 
 ### Non-matches
 If a file path doesn't point to a file or folder, then it
