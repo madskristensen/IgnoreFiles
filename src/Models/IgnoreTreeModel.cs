@@ -17,7 +17,6 @@ namespace IgnoreFiles.Models
         private HashSet<FileTreeModel> _filterMatches;
         private string _lastSearchText;
         private bool _lastShowAllFiles;
-        private bool _syncToSolutionExplorer;
 
         public IgnoreTreeModel(string rootDirectory, string pattern)
         {
@@ -31,7 +30,6 @@ namespace IgnoreFiles.Models
             SearchIcon = WpfUtil.GetIconForImageMoniker(KnownMonikers.Search, 16, 16);
             ShowAllFilesIcon = WpfUtil.GetIconForImageMoniker(KnownMonikers.ShowAllFiles, 16, 16);
             SyncToSolutionExplorerIcon = WpfUtil.GetIconForImageMoniker(KnownMonikers.Sync, 16, 16);
-            _syncToSolutionExplorer = true;
         }
 
         public ImageSource SyncToSolutionExplorerIcon { get; }
@@ -136,10 +134,10 @@ namespace IgnoreFiles.Models
 
                     FileTreeModel parent = model.Parent;
 
-                    while(parent != null)
+                    while (parent != null)
                     {
                         //If something else has already added our parent, it's already added the whole parent tree, bail.
-                        if(!visibleNodes.Add(parent) && (!explicitMatch || parent.IsExpanded))
+                        if (!visibleNodes.Add(parent) && (!explicitMatch || parent.IsExpanded))
                         {
                             break;
                         }
@@ -191,8 +189,15 @@ namespace IgnoreFiles.Models
 
         public bool SyncToSolutionExplorer
         {
-            get { return _syncToSolutionExplorer; }
-            set { Set(ref _syncToSolutionExplorer, value); }
+            get
+            {
+                return IgnorePackage.Options.SyncToSolutionExplorer;
+            }
+            set
+            {
+                IgnorePackage.Options.SyncToSolutionExplorer = value;
+                IgnorePackage.Options.SaveSettingsToStorage();
+            }
         }
     }
 }

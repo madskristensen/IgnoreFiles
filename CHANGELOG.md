@@ -1,5 +1,6 @@
 # Roadmap
 
+- [ ] Persist "Sync selected files" in Tools -> Options
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
 - [ ] Glyph in margin to indicate folders
