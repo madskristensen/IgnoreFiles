@@ -1,15 +1,5 @@
 # Roadmap
 
-- [x] Write result of removing non-matches to statusbar
-- [x] Light bulps support
-  - [x] Remove non-matching entry
-  - [x] Remove non-matching entry in document
-  - [x] Delete files that match
-  - [x] Remove matching files from project
-- [x] Full treeview in tooltip
-- [x] Add support for .babelignore and .svnignore
-- [x] Make files in tooltip clickable (selects file, opens file)
-- [x] Button to toggle the Solution Explorer selection sync
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
 - [ ] Glyph in margin to indicate folders
@@ -22,6 +12,21 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.1
+
+**2016-05-17**
+
+- [x] Write result of removing non-matches to statusbar
+- [x] Light bulps support
+  - [x] Remove non-matching entry
+  - [x] Remove non-matching entry in document
+  - [x] Delete files that match
+  - [x] Remove matching files from project
+- [x] Full treeview in tooltip
+- [x] Add support for .babelignore and .svnignore
+- [x] Make files in tooltip clickable (selects file, opens file)
+- [x] Button to toggle the Solution Explorer selection sync
 
 ## 1.0
 
