@@ -92,7 +92,7 @@ namespace IgnoreFiles
 
         private static object GetObjectData(IVsUIObject obj)
         {
-            Validate.IsNotNull(obj, "obj");
+            Validate.IsNotNull(obj, nameof(obj));
 
             object value;
             int result = obj.get_Data(out value);
