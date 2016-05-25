@@ -108,6 +108,7 @@ namespace IgnoreFiles
             var ignorePaths = IgnorePackage.Options.GetIgnorePatterns();
             var files = new List<string>();
             root = root ?? folder;
+            pattern = pattern.TrimStart('/', '\\');
 
             try
             {
