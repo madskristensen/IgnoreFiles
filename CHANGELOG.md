@@ -1,6 +1,5 @@
 # Roadmap
 
-- [ ] Persist "Sync selected files" in Tools -> Options
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
 - [ ] Glyph in margin to indicate folders
@@ -13,6 +12,13 @@ download in the
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
+
+## 1.2
+
+**2016-05-26**
+
+- [x] Support for paths starting with / or \
+- [x] Persist "Sync selected files" in Tools -> Options
 
 ## 1.1
 
