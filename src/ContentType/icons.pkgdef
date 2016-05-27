@@ -1,51 +1,76 @@
-// GIT
-[$RootKey$\ShellFileAssociations\.gitignore]
-"DefaultIconMoniker"="KnownMonikers.Git"
-
-// Team Foundation
-[$RootKey$\ShellFileAssociations\.tfignore]
-"DefaultIconMoniker"="KnownMonikers.TeamFoundationServer"
-
-// Mercurial
-[$RootKey$\ShellFileAssociations\.hgignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
-
-// npm
-[$RootKey$\ShellFileAssociations\.npmignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
-
-// Docker
-[$RootKey$\ShellFileAssociations\.dockerignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
-
-// Chef
-[$RootKey$\ShellFileAssociations\.chefignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
-
-// CVS
-[$RootKey$\ShellFileAssociations\.cvsignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
 
 // Bazaar
 [$RootKey$\ShellFileAssociations\.bzrignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
-
-// JSHint
-[$RootKey$\ShellFileAssociations\.jshintignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
-
-// ESLint
-[$RootKey$\ShellFileAssociations\.eslintignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:0"
 
 // Cloud foundry
 [$RootKey$\ShellFileAssociations\.cfignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:1"
 
-// Babel
-[$RootKey$\ShellFileAssociations\.babelignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+// Chef
+[$RootKey$\ShellFileAssociations\.chefignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:2"
+
+// CVS
+[$RootKey$\ShellFileAssociations\.cvsignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:3"
+
+// Darcs
+[$RootKey$\ShellFileAssociations\.boringignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:4"
+
+// Docker
+[$RootKey$\ShellFileAssociations\.dockerignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:6"
+
+// ESLint
+[$RootKey$\ShellFileAssociations\.eslintignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:7"
+
+// Floobits
+[$RootKey$\ShellFileAssociations\.flooignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:8"
+
+// GIT
+[$RootKey$\ShellFileAssociations\.gitignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:10"
+
+// Jetpack
+[$RootKey$\ShellFileAssociations\.jpmignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:11"
+
+// JSHint
+[$RootKey$\ShellFileAssociations\.jshintignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:12"
+
+// Mercurial
+[$RootKey$\ShellFileAssociations\.hgignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:13"
+
+// Monotone
+[$RootKey$\ShellFileAssociations\.mtn-ignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:14"
+
+// nodemon
+[$RootKey$\ShellFileAssociations\.nodemonignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:15"
+
+// npm
+[$RootKey$\ShellFileAssociations\.npmignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:16"
+
+// Perforce
+[$RootKey$\ShellFileAssociations\.p4ignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:17"
+
+// Team Foundation
+[$RootKey$\ShellFileAssociations\.tfignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:18"
 
 // SVN
 [$RootKey$\ShellFileAssociations\.svnignore]
-"DefaultIconMoniker"="KnownMonikers.ExlcudeScript"
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:19"
+
+// Babel
+[$RootKey$\ShellFileAssociations\.babelignore]
+"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:20"

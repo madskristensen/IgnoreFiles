@@ -7,11 +7,26 @@ or get the [CI build](http://vsixgallery.com/extension/7ac24965-ea21-4108-9cac-6
 
 ---------------------------------------
 
-This extension supports *.gitignore (Git), .tfignore (Team Foundation),
-.hgignore (Mercurial), .npmignore (npm), .dockerignore (Docker),
-.chefignore (Chef), .cvsignore (CVS), .bzrignore (Bazaar),
-.jshintignore (JSHint), .eslintignore (ESLint), .cfignore (Cloud Foundry),
-.babelignore (Babel), .svnignore (SVN)*
+This extension supports:
+
+- `.babelignore` (Babel)
+- `.boringignore` (Darcs)
+- `.bzrignore` (Bazaar)
+- `.cfignore` (Cloud Foundry)
+- `.chefignore` (Chef)
+- `.cvsignore` (CVS)
+- `.dockerignore` (Docker)
+- `.eslintignore` (ESLint)
+- `.flooignore` (Floobits)
+- `.gitignore` (Git)
+- `.hgignore` (Mercurial)
+- `.jpmignore` (Jetpack)
+- `.jshintignore` (JSHint)
+- `.mtn-ignore` (Monotone)
+- `.npmignore` (npm)
+- `.p4ignore` (Perforce)
+- `.svnignore` (SVN)
+- `.tfignore` (Team Foundation)
 
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 

@@ -29,6 +29,11 @@ namespace IgnoreFiles
 
         [Export(typeof(FileExtensionToContentTypeDefinition))]
         [ContentType(IgnoreContentType)]
+        [FileExtension(".nodemonignore")]
+        public FileExtensionToContentTypeDefinition NodemonFileExtension { get; set; }
+
+        [Export(typeof(FileExtensionToContentTypeDefinition))]
+        [ContentType(IgnoreContentType)]
         [FileExtension(".npmignore")]
         public FileExtensionToContentTypeDefinition NpmFileExtension { get; set; }
 
@@ -46,6 +51,31 @@ namespace IgnoreFiles
         [ContentType(IgnoreContentType)]
         [FileExtension(".cvsignore")]
         public FileExtensionToContentTypeDefinition CvsFileExtension { get; set; }
+
+        [Export(typeof(FileExtensionToContentTypeDefinition))]
+        [ContentType(IgnoreContentType)]
+        [FileExtension(".boringignore")]
+        public FileExtensionToContentTypeDefinition DarcsFileExtension { get; set; }
+
+        [Export(typeof(FileExtensionToContentTypeDefinition))]
+        [ContentType(IgnoreContentType)]
+        [FileExtension(".mtn-ignore")]
+        public FileExtensionToContentTypeDefinition MonotoneFileExtension { get; set; }
+
+        [Export(typeof(FileExtensionToContentTypeDefinition))]
+        [ContentType(IgnoreContentType)]
+        [FileExtension(".p4ignore")]
+        public FileExtensionToContentTypeDefinition PerforceFileExtension { get; set; }
+
+        [Export(typeof(FileExtensionToContentTypeDefinition))]
+        [ContentType(IgnoreContentType)]
+        [FileExtension(".flooignore")]
+        public FileExtensionToContentTypeDefinition FloobitsFileExtension { get; set; }
+
+        [Export(typeof(FileExtensionToContentTypeDefinition))]
+        [ContentType(IgnoreContentType)]
+        [FileExtension(".jpmignore")]
+        public FileExtensionToContentTypeDefinition JetpackFileExtension { get; set; }
 
         [Export(typeof(FileExtensionToContentTypeDefinition))]
         [ContentType(IgnoreContentType)]
