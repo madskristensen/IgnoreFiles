@@ -1,4 +1,4 @@
-# Roadmap
+# Road map
 
 - [ ] Intellisense for file paths
 - [ ] Item templates for most popular .ignore files
@@ -8,7 +8,7 @@ Features that have a checkmark are complete and available for
 download in the
 [CI build](http://vsixgallery.com/extension/7ac24965-ea21-4108-9cac-6e46394aaaef/).
 
-# Changelog
+# Change log
 
 These are the changes to each version that has been released
 on the official Visual Studio extension gallery.
@@ -24,13 +24,13 @@ on the official Visual Studio extension gallery.
 
 **2016-05-17**
 
-- [x] Write result of removing non-matches to statusbar
-- [x] Light bulps support
+- [x] Write result of removing non-matches to status bar
+- [x] Light bulbs support
   - [x] Remove non-matching entry
   - [x] Remove non-matching entry in document
   - [x] Delete files that match
   - [x] Remove matching files from project
-- [x] Full treeview in tooltip
+- [x] Full tree view in tooltip
 - [x] Add support for .babelignore and .svnignore
 - [x] Make files in tooltip clickable (selects file, opens file)
 - [x] Button to toggle the Solution Explorer selection sync

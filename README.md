@@ -29,7 +29,7 @@ This extension supports:
 - `.tfignore` (Team Foundation)
 - `.vscodeignore` (VSCode)
 
-See the [changelog](CHANGELOG.md) for changes and roadmap.
+See the [change log](CHANGELOG.md) for changes and road map.
 
 ## Features
 
@@ -42,7 +42,7 @@ See the [changelog](CHANGELOG.md) for changes and roadmap.
 - Syntax validation
 - Light Bulbs for quick actions
 
-### Syntax highlighing
+### Syntax highlighting
 Syntax highlighting for all types of .ignore file.
 
 ![Syntax Highlighting](art/syntax-highlighting.png)
@@ -65,7 +65,7 @@ the cursor in the bottom search field and start typing.
 
 To synchronize the selected file in the tooltip with the
 selected file in Solution Explorer, enable the 
-*Suync with Selected Document* button:
+*Sync with Selected Document* button:
 
 ![Button Sync](art/button-sync.png)
 
