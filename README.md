@@ -27,6 +27,7 @@ This extension supports:
 - `.p4ignore` (Perforce)
 - `.svnignore` (SVN)
 - `.tfignore` (Team Foundation)
+- `.vscodeignore` (VSCode)
 
 See the [changelog](CHANGELOG.md) for changes and roadmap.
 

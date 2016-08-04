@@ -33,7 +33,7 @@
 
 // GIT
 [$RootKey$\ShellFileAssociations\.gitignore]
-"DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:10"
+"DefaultIconMoniker"="KnownMonikers.Git"
 
 // Jetpack
 [$RootKey$\ShellFileAssociations\.jpmignore]
@@ -74,3 +74,7 @@
 // Babel
 [$RootKey$\ShellFileAssociations\.babelignore]
 "DefaultIconMoniker"="d9bd2728-008e-4865-9387-67da8074c9fc:20"
+
+// VS Code
+[$RootKey$\ShellFileAssociations\.vscodeignore]
+"DefaultIconMoniker"="KnownMonikers.VisualStudioExpressWindows"

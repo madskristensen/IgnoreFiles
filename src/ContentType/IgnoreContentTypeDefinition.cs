@@ -101,5 +101,10 @@ namespace IgnoreFiles
         [ContentType(IgnoreContentType)]
         [FileExtension(".svnignore")]
         public FileExtensionToContentTypeDefinition SvnFileExtension { get; set; }
+
+        [Export(typeof(FileExtensionToContentTypeDefinition))]
+        [ContentType(IgnoreContentType)]
+        [FileExtension(".vscodeignore")]
+        public FileExtensionToContentTypeDefinition VsCodeFileExtension { get; set; }
     }
 }
