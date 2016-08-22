@@ -20,7 +20,7 @@ namespace IgnoreFiles.Models
 
         public IgnoreTreeModel(string rootDirectory, string pattern)
         {
-            _pattern = pattern.TrimStart('/', '\\');
+            _pattern = pattern.TrimStart('/', '\\', '!');
             TreeRoot = FileTree.ForDirectory(rootDirectory);
             ShouldBeVisible = CheckVisibility;
             IsSearchMatch = f => true;
