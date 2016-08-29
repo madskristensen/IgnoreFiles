@@ -10,21 +10,17 @@ namespace IgnoreFiles
 {
     internal sealed class RemoveNonMatchesCommand
     {
-        private readonly Package _package;
         private ITextBuffer _buffer;
+        private DTE2 _dte;
 
-        private RemoveNonMatchesCommand(Package package)
+        private RemoveNonMatchesCommand(OleMenuCommandService commandService, DTE2 dte)
         {
-            _package = package;
+            _dte = dte;
 
-            OleMenuCommandService commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService != null)
-            {
-                var cmdID = new CommandID(PackageGuids.guidPackageCmdSet, PackageIds.RemoveNonMatches);
-                var command = new OleMenuCommand(Execute, cmdID);
-                command.BeforeQueryStatus += BeforeQueryStatus;
-                commandService.AddCommand(command);
-            }
+            var cmdID = new CommandID(PackageGuids.guidPackageCmdSet, PackageIds.RemoveNonMatches);
+            var command = new OleMenuCommand(Execute, cmdID);
+            command.BeforeQueryStatus += BeforeQueryStatus;
+            commandService.AddCommand(command);
         }
 
         public static RemoveNonMatchesCommand Instance
@@ -33,14 +29,11 @@ namespace IgnoreFiles
             private set;
         }
 
-        private IServiceProvider ServiceProvider
+        public static async System.Threading.Tasks.Task Initialize(AsyncPackage package)
         {
-            get { return _package; }
-        }
-
-        public static void Initialize(Package package)
-        {
-            Instance = new RemoveNonMatchesCommand(package);
+            var commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
+            var dte = await package.GetServiceAsync(typeof(DTE)) as DTE2;
+            Instance = new RemoveNonMatchesCommand(commandService, dte);
         }
 
         private void BeforeQueryStatus(object sender, EventArgs e)
@@ -63,13 +56,12 @@ namespace IgnoreFiles
             if (!_buffer.Properties.TryGetProperty(typeof(IgnoreClassifier), out classifier))
                 return;
 
-            var dte = (DTE2)ServiceProvider.GetService(typeof(DTE));
             int linesRemoved = 0;
 
             try
             {
-                dte.StatusBar.Text = "Analyzing file and removing non-matches...";
-                dte.UndoContext.Open("Removed non-matches");
+                _dte.StatusBar.Text = "Analyzing file and removing non-matches...";
+                _dte.UndoContext.Open("Removed non-matches");
 
                 using (var edit = _buffer.CreateEdit())
                 {
@@ -95,8 +87,8 @@ namespace IgnoreFiles
             }
             finally
             {
-                dte.StatusBar.Text = $"{linesRemoved} non-matching entries removed";
-                dte.UndoContext.Close();
+                _dte.StatusBar.Text = $"{linesRemoved} non-matching entries removed";
+                _dte.UndoContext.Close();
             }
         }
     }

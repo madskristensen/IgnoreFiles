@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using EnvDTE80;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -7,12 +8,12 @@ using Microsoft.VisualStudio.Shell.Interop;
 
 namespace IgnoreFiles
 {
-    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", Vsix.Version, IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideOptionPage(typeof(Options), "Text Editor\\.ignore", "General", 101, 111, true, new[] { ".gitignore", ".tfignore" }, ProvidesLocalizedCategoryName = false)]
     [Guid(PackageGuids.guidPackageString)]
-    public sealed class IgnorePackage : Package
+    public sealed class IgnorePackage : AsyncPackage
     {
         private static Options _options;
         private static DTE2 _dte;
@@ -46,14 +47,12 @@ namespace IgnoreFiles
             }
         }
 
-        protected override void Initialize()
+        protected override async System.Threading.Tasks.Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+            await Logger.InitializeAsync(this, Vsix.Name);
+            await RemoveNonMatchesCommand.Initialize(this);
+
             _options = (Options)GetDialogPage(typeof(Options));
-
-            Logger.Initialize(this, Vsix.Name);
-            RemoveNonMatchesCommand.Initialize(this);
-
-            base.Initialize();
         }
     }
 }
