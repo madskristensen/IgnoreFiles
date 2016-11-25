@@ -1,26 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-  <Metadata>
-    <Identity Id="7ac24965-ea21-4108-9cac-6e46394aaaef" Version="1.2" Language="en-US" Publisher="Mads Kristensen" />
-    <DisplayName>.ignore</DisplayName>
-    <Description xml:space="preserve">A language service that makes it painless to handle all types of .ignore files such as .gitignore, .tfignore, etc.</Description>
-    <MoreInfo>https://github.com/madskristensen/IgnoreFiles</MoreInfo>
-    <License>Resources/LICENSE</License>
-    <ReleaseNotes>https://github.com/madskristensen/IgnoreFiles/blob/master/CHANGELOG.md</ReleaseNotes>
-    <Icon>Resources\Icon.png</Icon>
-    <PreviewImage>Resources\Preview.png</PreviewImage>
-    <Tags>git, tfs, svn, mercurial, ignore, npm, scc</Tags>
-  </Metadata>
-  <Installation>
-    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="14.0" />
-    <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="15.0" />
-  </Installation>
+    <Metadata>
+        <Identity Id="7ac24965-ea21-4108-9cac-6e46394aaaef" Version="1.2" Language="en-US" Publisher="Mads Kristensen" />
+        <DisplayName>.ignore</DisplayName>
+        <Description xml:space="preserve">A language service that makes it painless to handle all types of .ignore files such as .gitignore, .tfignore, etc.</Description>
+        <MoreInfo>https://github.com/madskristensen/IgnoreFiles</MoreInfo>
+        <License>Resources/LICENSE</License>
+        <ReleaseNotes>https://github.com/madskristensen/IgnoreFiles/blob/master/CHANGELOG.md</ReleaseNotes>
+        <Icon>Resources\Icon.png</Icon>
+        <PreviewImage>Resources\Preview.png</PreviewImage>
+        <Tags>git, tfs, svn, mercurial, ignore, npm, scc</Tags>
+    </Metadata>
+    <Installation>
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="14.0" />
+        <InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="15.0" />
+    </Installation>
     <Prerequisites>
         <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,16.0)" DisplayName="Visual Studio core editor" />
     </Prerequisites>
-  <Assets>
-    <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
-    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="File" Path="ContentType\icons.pkgdef" />
-    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-  </Assets>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.MefComponent" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%|" />
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="File" Path="ContentType\icons.pkgdef" />
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
 </PackageManifest>
