@@ -25,6 +25,7 @@
     <ID Name="perforce" Value="17" />
     <ID Name="svn" Value="19" />
     <ID Name="tf" Value="18" />
+    <ID Name="yarn" Value="21" />
   </Symbols>
   <Images>
     <Image Guid="$(FileIconsGuid)" ID="$(babel)">
@@ -184,6 +185,14 @@
         <Size Value="16" />
       </Source>
       <Source Uri="$(Resources)/tf.32.32.png">
+        <Size Value="32" />
+      </Source>
+    </Image>
+    <Image Guid="$(FileIconsGuid)" ID="$(yarn)">
+      <Source Uri="$(Resources)/yarn.16.16.png">
+        <Size Value="16" />
+      </Source>
+      <Source Uri="$(Resources)/yarn.32.32.png">
         <Size Value="32" />
       </Source>
     </Image>

@@ -106,5 +106,10 @@ namespace IgnoreFiles
         [ContentType(IgnoreContentType)]
         [FileExtension(".vscodeignore")]
         public FileExtensionToContentTypeDefinition VsCodeFileExtension { get; set; }
+
+        [Export(typeof(FileExtensionToContentTypeDefinition))]
+        [ContentType(IgnoreContentType)]
+        [FileExtension(".yarnignore")]
+        public FileExtensionToContentTypeDefinition YarnFileExtension { get; set; }
     }
 }
