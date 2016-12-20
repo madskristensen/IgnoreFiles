@@ -33,7 +33,7 @@ namespace IgnoreFiles
 
         public override void Invoke(CancellationToken cancellationToken)
         {
-            var okToProceed = MessageBox.Show("Are you sure you want to delete the mathing file system entries?", Vsix.Name, MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            var okToProceed = MessageBox.Show("Are you sure you want to delete the matching file system entries?", Vsix.Name, MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if (okToProceed != MessageBoxResult.OK)
                 return;
 
