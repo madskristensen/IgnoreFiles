@@ -340,6 +340,8 @@
     <Resource Include="ContentType\FileIcons\svn.32.32.png" />
     <Resource Include="ContentType\FileIcons\babel.16.16.png" />
     <Resource Include="ContentType\FileIcons\babel.32.32.png" />
+    <Resource Include="ContentType\FileIcons\yarn.16.16.png" />
+    <Resource Include="ContentType\FileIcons\yarn.32.32.png" />
     <Content Include="ContentType\icons.pkgdef">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

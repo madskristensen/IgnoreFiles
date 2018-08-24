@@ -28,6 +28,7 @@ This extension supports:
 - `.svnignore` (SVN)
 - `.tfignore` (Team Foundation)
 - `.vscodeignore` (VSCode)
+- `.yarnignore` (Yarn)
 
 See the [change log](CHANGELOG.md) for changes and road map.
 
