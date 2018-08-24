@@ -5,7 +5,7 @@
         <DisplayName>.ignore</DisplayName>
         <Description xml:space="preserve">A language service that makes it painless to handle all types of .ignore files such as .gitignore, .tfignore, etc.</Description>
         <MoreInfo>https://github.com/madskristensen/IgnoreFiles</MoreInfo>
-        <License>Resources/LICENSE</License>
+        <License>Resources\LICENSE</License>
         <ReleaseNotes>https://github.com/madskristensen/IgnoreFiles/blob/master/CHANGELOG.md</ReleaseNotes>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\Preview.png</PreviewImage>
